@@ -1,0 +1,32 @@
+---
+interface Props {
+    title: string;
+    description: string;
+    image: string;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<div class="relative h-96 overflow-hidden">
+    <!-- Item 1 -->
+    <div class="">
+        <img
+            src={image}
+            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+            alt="..."
+        />
+    </div>
+    <div
+        class="absolute left-0 bottom-0 top-0 right-0 z-30 w-full h-full flex justify-center items-center flex-col"
+    >
+        <h1 class="uppercase text-3xl text-white font-medium text-center">
+            {title}
+        </h1>
+        <p class="text-center w-4/12 text-white">{description}</p>
+    </div>
+    <div
+        class="absolute bottom-0 left-0 right-0 top-0 z-20 bg-black bg-opacity-40"
+    >
+    </div>
+</div>

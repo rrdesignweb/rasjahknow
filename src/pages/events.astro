@@ -1,12 +1,61 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import HeroBanner from "../components/HeroBanner.astro";
+
+const artist = "Ras Jahknow Band";
+const apiUrl = `https://rest.bandsintown.com/artists/${artist}/events?app_id=squarespace-todd-wright-gxya&date=all`;
+const response = await fetch(apiUrl);
+const data = await response.json();
 ---
 
 <Layout title="Events Ras Jahknow">
-	<main>
-		<h1>Events</h1>
-		<section class="w-8/12 mx-auto my-10">
-			
-		</section>
-	</main>
+    <main>
+        <HeroBanner
+            title="Events"
+            description="See all Ras Jahknow Gigs & Tours"
+            image="/carousel-2.jpeg"
+        />
+        <section class="w-8/12 mx-auto my-10">
+            <!-- <h2>{JSON.stringify(data)}</h2> -->
+            <div class="">
+                {
+                    data.map((event: any) => {
+                        return (
+                            <div class="bg-gray-700 bg-opacity-70 p-10 my-2 flex justify-between text-white">
+                                <div class="flex justify-between gap-4">
+                                    <div class="">
+                                        {event.datetime}
+                                    </div>
+                                    <div class="">
+                                        {event.venue.name}
+                                    </div>
+                                    <div class="">
+                                        <div class="city">
+                                            {event.venue.city}
+                                        </div>
+                                        <div class="">
+                                            {event.venue.region}
+                                        </div>
+                                        <div class="">
+                                            {event.venue.country}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <a
+                                        href={event.url}
+                                        rel="noreferrer"
+                                        target="_blank"
+                                        title={event.title}
+                                    >
+                                        Tickets
+                                    </a>
+                                </div>
+                            </div>
+                        );
+                    })
+                }
+            </div>
+        </section>
+    </main>
 </Layout>
