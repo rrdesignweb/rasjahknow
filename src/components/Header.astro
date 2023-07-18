@@ -1,0 +1,12 @@
+---
+import Navigation from "./Navigation.astro";
+import Logo from "./Logo.astro";
+---
+
+<header class="bg-black bg-opacity-70 w-full fixed z-50">
+    <div class="container h-full py-8 flex justify-between items-center">
+        <Logo/>
+        <Navigation/>
+    </div>
+    <slot />
+</header>

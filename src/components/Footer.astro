@@ -1,0 +1,21 @@
+---
+import Social from './Social.astro';
+---
+
+<footer
+    class="bg-gray-700 text-white w-full flex justify-between items-center h-36 py-8"
+>
+    <div class="container flex justify-between items-center ">
+        <p>©Copyright Ras Jahknow 2011-<span id="year"></span></p>
+        <div class="flex gap-4">
+            <Social platform="instagram" username="rasjahknow" />
+            <Social platform="facebook" username="rasjahknowband" />
+            <Social platform="youtube" username="rasjahknow" />
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript">
+const dt = new Date();
+document.getElementById("year").textContent = dt.getUTCFullYear();
+</script>
