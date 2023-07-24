@@ -9,7 +9,7 @@ import Button from "./Button.astro";
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
             <img
                 src="/carousel-1.jpeg"
-                class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                class="absolute block w-full object-cover h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                 alt="..."
             />
         </div>
@@ -20,7 +20,7 @@ import Button from "./Button.astro";
         >
             <img
                 src="/carousel-2.jpeg"
-                class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                class="absolute block w-full object-cover h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                 alt="..."
             />
         </div>
@@ -28,7 +28,7 @@ import Button from "./Button.astro";
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
             <img
                 src="/carousel-3.jpeg"
-                class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                class="absolute block w-full object-cover h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                 alt="..."
             />
         </div>
@@ -36,7 +36,15 @@ import Button from "./Button.astro";
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
             <img
                 src="/carousel-4.jpeg"
-                class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                class="absolute block w-full object-cover h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                alt="..."
+            />
+        </div>
+        <!-- Item 5 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+            <img
+                src="/carousel-5.jpeg"
+                class="absolute block w-full object-cover h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                 alt="..."
             />
         </div>
@@ -99,10 +107,10 @@ import Button from "./Button.astro";
     <div
         class="absolute left-0 bottom-0 top-0 right-0 z-20 w-full h-full flex justify-center items-center flex-col"
     >
-        <h1 class="uppercase text-3xl text-white font-medium text-center">
+        <h1 class="md:text-3xl text-2xl uppercase text-white font-medium text-center">
             RAS JAHKNOW
         </h1>
-        <div class="flex gap-4">
+        <div class="flex md:flex-row md:gap-4 flex-col text-center">
             <Button href="/events">View Events</Button>
             <Button href="/biography">View Biography</Button>
         </div>

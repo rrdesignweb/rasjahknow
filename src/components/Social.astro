@@ -1,10 +1,26 @@
 ---
 interface Props {
-    platform: string;
-    username: string;
+  platform: string;
+  username: string;
 }
+import instagram from "/instagram.svg";
+import facebook from "/facebook.svg";
+import youtube from "/youtube.svg";
 
 const { platform, username } = Astro.props;
 ---
 
-<a class="appearance-none py-2 my-4 px-4 bg-transparent border-2 uppercase text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent hover:text-white focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75" href={`https://www.${platform}.com/${username}`}>{platform}</a>
+<a
+  class="appearance-none flex justify-center items-center py-2 my-4 px-2 text-white"
+  href={`https://www.${platform}.com/${username}`}
+>
+  <img
+    class="w-8 text-white"
+    src={platform === "facebook"
+      ? facebook
+      : platform === "instagram"
+      ? instagram
+      : youtube}
+    alt={`${platform} icon`}
+  />
+</a>
