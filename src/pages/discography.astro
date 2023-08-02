@@ -51,13 +51,3 @@ import HeroBanner from "../components/HeroBanner.astro";
     </section>
   </main>
 </Layout>
-
-<script>
-  window.onload = function () {
-    let myiFrame: any = document.getElementById("iframe1");
-    let doc: any = myiFrame.contentDocument;
-    doc.body.innerHTML =
-      doc.body.innerHTML +
-      "<style type='text/css'>.standalonetrackplayer #timelinecontainer {top: 5px !important;}</style>";
-  };
-</script>
