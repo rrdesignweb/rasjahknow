@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
+
 ---
 
 <Layout title="Gallery">
@@ -11,7 +12,14 @@ import HeroBanner from "../components/HeroBanner.astro";
       image="/carousel-3.jpeg"
     />
     <section class="w-8/12 mx-auto my-10">
-	<!--  -->
+		<div id="instafeed"></div>
 	</section>
   </main>
 </Layout>
+
+<script type="text/javascript">
+    var feed = new Instafeed({
+      accessToken: 'your-token'
+    });
+    feed.run();
+</script>

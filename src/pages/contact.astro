@@ -10,53 +10,103 @@ import HeroBanner from "../components/HeroBanner.astro";
       description="Contact Ras Jahknow for bookings and enquiries"
       image="/carousel-4.jpeg"
     />
-    <section class="w-11/12 md:w-6/12 mx-auto my-10">
-		<h2 class="text-2xl uppercase font-medium">Contact Us</h2>
-		<form
-			method="post"
-			name="contact"
-			action="/contact-success"
-			data-netlify="true"
-			netlify-honeypot="bot"
-	  >
-		<input type="hidden" name="form-name" value="contact" />
-		<div class="my-6">
-		  <label class="sr-only">
-			Don't fill this out human
-			<input name="bot" />
-		  </label>
-		</div>
-		<div class="my-6">
-		  <label>
-			<span class="required sr-only">Full Name</span>
-			<input type="text" name="name" placeholder="Your name" required class="w-full  border border-gray bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-m"/>
-		  </label>
-		</div>
-		<div class="my-6">
-		  <label>
-			<span class="required sr-only">Email</span>
-			<input type="email" name="email" placeholder="your@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required class="w-full  border border-gray bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-m"/>
-		  </label>
-		</div>
-		<div class="my-6">
-		  <label>
-			<span class="sr-only">Subject</span>
-			<input type="text" name="subject" placeholder="Subject" class="w-full border border-gray bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-m"/>
-		  </label>
-		</div>
-		<div class="my-6">
-		  <label>
-			<span class="required sr-only">Message</span>
-			<textarea type="text" placeholder="Please enter your enquiry..." name="message" rows="12" required class="w-full  border border-gray bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-m" />
-		  </label>
-		</div>
-		<div class="" data-netlify-recaptcha="true"></div>
-		<div class="w-12/12 md:w-3/12">
-		  <button type="submit" class="w-full cursor-pointer appearance-none py-2 mt-6 mb-6 px-4 bg-red-700 border-2 uppercase text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75">
-			Send
-		  </button>
-		</div>
-	  </form>
+    <section class="w-11/12 md:w-8/12 flex md:flex-row flex-col gap-6 mx-auto my-12">
+      <div class="w-12/12 md:w-6/12 mt-2">
+        <form
+          method="post"
+          name="contact"
+          action="/contact-success"
+          data-netlify="true"
+          netlify-honeypot="bot"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <div class="">
+            <label class="sr-only">
+              Don't fill this out human
+              <input name="bot" />
+            </label>
+          </div>
+          <div class="mb-6">
+            <label>
+              <span class="required sr-only">Full Name</span>
+              <input
+                type="text"
+                name="name"
+                placeholder="Your name"
+                required
+                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-m"
+              />
+            </label>
+          </div>
+          <div class="my-6">
+            <label>
+              <span class="required sr-only">Email</span>
+              <input
+                type="email"
+                name="email"
+                placeholder="your@email.com"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                required
+                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-m"
+              />
+            </label>
+          </div>
+          <div class="my-6">
+            <label>
+              <span class="sr-only">Subject</span>
+              <input
+                type="text"
+                name="subject"
+                placeholder="Subject"
+                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-m"
+              />
+            </label>
+          </div>
+          <div class="my-6">
+            <label>
+              <span class="required sr-only">Message</span>
+              <textarea
+                type="text"
+                placeholder="Please enter your enquiry..."
+                name="message"
+                rows="12"
+                required
+                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-m"
+              ></textarea>
+            </label>
+          </div>
+          <div class="" data-netlify-recaptcha="true"></div>
+          <div class="w-12/12 md:w-4/12">
+            <button
+              type="submit"
+              class="w-full cursor-pointer appearance-none py-2 mt-6 mb-6 px-4 bg-red-700 border-2 uppercase text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+            >
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="w-12/12 md:w-6/12">
+        <div class="">
+          <div>
+            <h2 class="text-2xl font-medium mb-4">Get In Touch!</h2>
+          </div>
+
+          <div class="">
+            <p>Feel free to call us directly or simply complete our form</p>
+
+            <div class="">
+              <p>
+                <span>Bookings Phone:</span><br /><span
+                  >Tanya @ Sona Productions</span
+                ><br />+61 420 203 829
+              </p>
+              <p>rasjahknowband@gmail.com</p>
+              <p>Melbourne Australia</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 </Layout>
