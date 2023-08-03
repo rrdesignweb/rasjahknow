@@ -2,6 +2,31 @@
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
 
+const endpoint = "https://graph.instagram.com";
+const userId = "6891009717599669";
+const fields = "id,media_url,media_type,thumbnail_url,permalink";
+const token = import.meta.env.INSTAGRAM_ACCESS_TOKEN;
+const limit = 9;
+const url = `${endpoint}/${userId}/media/?fields=${fields}&access_token=${token}&count=${limit}`;
+
+let myHeaders = new Headers();
+myHeaders.append(
+  "apiKey",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0"
+);
+myHeaders.append(
+  "Authorization",
+  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0"
+);
+myHeaders.append("Content-Type", "application/json");
+
+const requestOptions = {
+  method: "GET",
+  headers: myHeaders,
+};
+const response = await fetch(url, requestOptions);
+const result = await response.json();
+
 ---
 
 <Layout title="Gallery">
@@ -12,14 +37,39 @@ import HeroBanner from "../components/HeroBanner.astro";
       image="/carousel-3.jpeg"
     />
     <section class="w-8/12 mx-auto my-10">
-		<div id="instafeed"></div>
-	</section>
+		<h2 class="font-medium uppercase text-2xl mb-4">FOLLOW  @RASJAHKNOW</h2>
+		<div class="grid grid-cols-1 md:grid-cols-4 gap-1">
+			{
+				result.data.map((item: any) => {
+					if(item.media_type === "IMAGE") {
+						return (
+							<a href={item.permalink} target="_blank">
+								<div class="relative w-full h-60">
+									<div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0"></div>
+									<img class="object-cover w-full h-full" src={item.media_url} />
+								</div>
+							</a>
+						)
+					}
+					if(item.media_type === "VIDEO") {
+						return (
+							<a href={item.permalink} target="_blank">
+								<div class="relative w-full h-60">
+									<div class="absolute left-0 bottom-0 top-0 right-0 z-30 flex justify-center items-center flex-col">
+										<span class="sr-only">Watch the video</span>
+										<svg class="ml-1 w-4" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M15 7.26795C16.3333 8.03775 16.3333 9.96225 15 10.7321L3 17.6603C1.66667 18.4301 1.01267e-06 17.4678 1.07997e-06 15.9282L1.68565e-06 2.0718C1.75295e-06 0.532196 1.66667 -0.430054 3 0.339746L15 7.26795Z" fill="white" />
+										</svg>
+									</div>
+									<div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0"></div>
+									<img class="object-cover w-full h-full" src={item.thumbnail_url} />
+								</div>
+							</a>
+						)
+					}
+				})
+			}
+		</div>
+    </section>
   </main>
 </Layout>
-
-<script type="text/javascript">
-    var feed = new Instafeed({
-      accessToken: 'your-token'
-    });
-    feed.run();
-</script>
