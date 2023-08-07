@@ -3,67 +3,75 @@ import Button from "./Button.astro";
 ---
 
 <section class="bg-black bg-opacity-90">
-    <div class="flex gap-8">
-        <div class="md:w-4/12 md:block hidden pl-8 py-10 ml-8 mt-auto mb-auto h-full">
-            <h2 class="text-white text-2xl uppercase font-medium mb-8">Music</h2>
-            <Button href="/music">View all albums</Button>
-        </div>
-        <div class="Albums flex p-10 gap-x-8 gap-y-4 overflow-x-auto">
-            <div class="py-4">
-                <iframe
-                    class="border-0 md:w-96 md:h-96 w-60 h-60"
-                    src="https://bandcamp.com/EmbeddedPlayer/album=1782021373/size=large/bgcol=333333/linkcol=e32c14/minimal=true/transparent=true/"
-                    seamless
-                    ><a
-                    href="https://rasjahknow.bandcamp.com/album/jah-sta-li">Jah
-                    Sta Li by RAS JAHKNOW</a></iframe
-                >
-            </div>
-            <div class="py-4">
-                <iframe
-                    class="border-0 md:w-96 md:h-96 w-60 h-60"
-                    src="https://bandcamp.com/EmbeddedPlayer/track=1877009766/size=large/bgcol=333333/linkcol=e32c14/minimal=true/transparent=true/"
-                    seamless
-                    ><a
-                    href="https://rasjahknow.bandcamp.com/track/what-a-gwan">What
-                    A Gwan by Ras Jahknow</a></iframe
-                >
-            </div>
-            <div class="py-4">
-                <iframe
-                    class="border-0 md:w-96 md:h-96 w-60 h-60"
-                    src="https://bandcamp.com/EmbeddedPlayer/album=1462385926/size=large/bgcol=333333/linkcol=e32c14/minimal=true/transparent=true/"
-                    seamless
-                    ><a
-                    href="https://rasjahknow.bandcamp.com/album/jah-sta-li-dub">Jah
-                    Sta Li Dub by Ras Jahknow</a></iframe
-                >
-            </div>
-        </div>
+  <div class="flex gap-8">
+    <div
+      class="md:w-4/12 md:block hidden pl-8 py-10 ml-8 mt-auto mb-auto h-full"
+    >
+      <h2 class="text-white text-2xl uppercase font-medium mb-8">Music</h2>
+      <Button href="/music">View all albums</Button>
     </div>
+    <div class="Albums flex p-10 gap-x-8 gap-y-4 overflow-x-auto">
+      <div class="py-4">
+        <iframe
+          class="border-0 md:w-96 md:h-96 w-60 h-60"
+          src="https://bandcamp.com/EmbeddedPlayer/album=1782021373/size=large/bgcol=333333/linkcol=e32c14/minimal=true/transparent=true/"
+          seamless
+          ><a href="https://rasjahknow.bandcamp.com/album/jah-sta-li">Jah Sta Li
+          by RAS JAHKNOW</a></iframe
+        >
+      </div>
+      <div class="py-4">
+        <iframe
+          class="border-0 md:w-96 md:h-96 w-60 h-60"
+          src="https://bandcamp.com/EmbeddedPlayer/track=1877009766/size=large/bgcol=333333/linkcol=e32c14/minimal=true/transparent=true/"
+          seamless
+          ><a href="https://rasjahknow.bandcamp.com/track/what-a-gwan">What A
+          Gwan by Ras Jahknow</a></iframe
+        >
+      </div>
+      <div class="py-4">
+        <iframe
+          class="border-0 md:w-96 md:h-96 w-60 h-60"
+          src="https://bandcamp.com/EmbeddedPlayer/album=1462385926/size=large/bgcol=333333/linkcol=e32c14/minimal=true/transparent=true/"
+          seamless
+          ><a href="https://rasjahknow.bandcamp.com/album/jah-sta-li-dub">Jah
+          Sta Li Dub by Ras Jahknow</a></iframe
+        >
+      </div>
+      <div class="py-4">
+        <iframe
+          class="border-0 md:w-96 md:h-96 w-60 h-60"
+          src="https://bandcamp.com/EmbeddedPlayer/track=860860485/size=large/bgcol=333333/linkcol=e32c14/tracklist=false/transparent=true/"
+          seamless
+          ><a href="https://rasjahknow.bandcamp.com/track/get-up-live">GET UP
+          &amp; LIVE by RAS JAHKNOW</a></iframe
+        >
+      </div>
+    </div>
+  </div>
 </section>
 
 <style>
-	/* Firefox */
-	.Albums {
-		scrollbar-width: thin;
-		scrollbar-color: var(--secondary) var(--primary);
-	}
+  /* Firefox */
+  .Albums {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary) var(--primary);
+  }
 
-	/* Chrome, Edge, and Safari */
-	.Albums::-webkit-scrollbar {
-		width: 20px;
-		height: 20px;
-	}
+  /* Chrome, Edge, and Safari */
+  .Albums::-webkit-scrollbar {
+    width: 20px;
+    height: 20px;
+  }
 
-	.Albums::-webkit-scrollbar-track {
-		background: var(--primary);
-		border-radius: 0px;
-	}
+  .Albums::-webkit-scrollbar-track {
+    background: var(--primary);
+    border-radius: 0px;
+  }
 
-	.Albums::-webkit-scrollbar-thumb {
-		background-color: var(--secondary);
-		border-radius: 0px;
-		border: 0px solid var(--primary);
-	}
+  .Albums::-webkit-scrollbar-thumb {
+    background-color: var(--secondary);
+    border-radius: 0px;
+    border: 0px solid var(--primary);
+  }
 </style>
