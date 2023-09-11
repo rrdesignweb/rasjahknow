@@ -1,56 +1,49 @@
 ---
 import Button from "./Button.astro";
+import { contentfulClient } from "../lib/contentful";
+import type { Entry } from "contentful";
+
+interface SlideItem {
+  contentTypeId: "homeSlider";
+  fields: {
+    image: {
+      fields: {
+        file: {
+          url: string | undefined;
+        };
+      };
+    };
+    imageAlt: Entry;
+    firstSlide: boolean;
+  };
+}
+
+const entries = await contentfulClient.getEntries<SlideItem>({
+  content_type: "homeSlider",
+});
 ---
 
 <div id="controls-carousel" class="relative w-full" data-carousel="slide">
+
   <!-- Carousel wrapper -->
   <div class="relative h-screen overflow-hidden">
-    <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-      <img
-        src="/carousel-0.jpeg"
-        class="absolute block w-full object-cover h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-        alt="..."
-      />
-    </div>
-    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-      <img
-        src="/carousel-2.jpeg"
-        class="absolute block w-full object-cover h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-        alt="..."
-      />
-    </div>
-
-    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-      <img
-        src="/carousel-3.jpeg"
-        class="absolute block w-full object-cover h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-        alt="..."
-      />
-    </div>
-
-    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-      <img
-        src="/carousel-4.jpeg"
-        class="absolute block w-full object-cover h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-        alt="..."
-      />
-    </div>
-    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-      <img
-        src="/carousel-1.jpeg"
-        class="absolute block w-full object-cover h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-        alt="..."
-      />
-    </div>
-
-    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-      <img
-        src="/carousel-5.jpeg"
-        class="absolute block w-full object-cover h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-        alt="..."
-      />
-    </div>
+    {
+      entries &&
+        entries.items.map((item: any, i: number) => (
+          <div
+            class="hidden duration-700 ease-in-out"
+            data-carousel-item={item.fields.firstSlide === true ? "active" : ""}
+          >
+            <img
+              src={item.fields.image.fields.file?.url}
+              class="absolute block w-full object-cover h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+              alt={item.fields.imageAlt}
+            />
+          </div>
+        ))
+    }
   </div>
+
   <!-- Slider controls -->
   <button
     type="button"

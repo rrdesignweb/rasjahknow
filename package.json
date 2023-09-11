@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "@astrojs/tailwind": "^4.0.0",
+    "@contentful/rich-text-html-renderer": "^16.1.1",
     "astro": "^2.8.3",
+    "contentful": "^10.5.1",
     "date-fns": "^2.30.0",
     "flowbite": "^1.7.0",
     "instafeed.js": "^2.0.0",
