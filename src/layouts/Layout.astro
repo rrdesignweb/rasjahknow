@@ -2,7 +2,7 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import BookingsStrip from "../components/BookingsStrip.astro";
-
+import Instagram from "../components/Instagram.astro";
 interface Props {
   title: string;
 }
@@ -25,6 +25,7 @@ const { title } = Astro.props;
     <!-- START INNER PAGE CONTENT <MAIN> -->
     <slot />
     <!-- END INNER PAGE CONTENT <MAIN> -->
+    <Instagram />
     <BookingsStrip />
     <Footer />
     <script

@@ -14,10 +14,10 @@ const data = await response.json();
       </h3>
     </div>
     <div
-      class="bg-gray-500 bg-opacity-70 py-4 px-10 mb-2 flex justify-between text-white uppercase font-medium"
+      class="bg-gray-500 bg-opacity-70 py-4 p-8 mb-2 flex justify-between text-white uppercase font-medium"
     >
-      <div class="w-3/12">Date</div>
-      <div class="w-3/12 hidden md:flex">Venue</div>
+      <div class="w-8/12 md:w-3/12">Date</div>
+      <div class="w-9/12 md:w-3/12 md:flex">Venue</div>
       <div class="w-3/12 hidden md:flex">Location</div>
       <div class="w-full md:w-3/12 text-right">Tickets</div>
     </div>
@@ -28,17 +28,28 @@ const data = await response.json();
         .map((event: any) => {
           return (
             <div class="bg-gray-600 bg-opacity-70 p-8 mb-2 flex justify-between items-center text-white">
-              <div class="w-3/12">
+              <div class="md:w-3/12 hidden md:flex">
                 {format(new Date(event.datetime), "dd/MM/yyyy")}
               </div>
-              <div class="w-3/12 hidden md:flex">{event.venue.name}</div>
+              <div class="w-8/12 md:w-0 flex md:hidden">
+                {format(new Date(event.datetime), "dd/MM/yy")}
+              </div>
+              <div class="w-9/12 md:w-3/12 md:flex">{event.venue.name}</div>
               <div class="w-3/12 hidden md:flex flex-col">
-                <div class="address">
-                  {event.venue.street_address}, {event.venue.city}
-                </div>
-                <div class="country_pc">
-                  {event.venue.country}, {event.venue.postal_code}
-                </div>
+                <a
+                  class="hover:underline"
+                  target="_blank"
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                    `${event.venue.street_address} ${event.venue.city} ${event.venue.country} ${event.venue.postal_code}`
+                  )}`}
+                >
+                  <div class="address">
+                    {event.venue.street_address}, {event.venue.city}
+                  </div>
+                  <div class="country_pc">
+                    {event.venue.country}, {event.venue.postal_code}
+                  </div>
+                </a>
               </div>
               <div class="w-full md:w-3/12 text-right">
                 <a
@@ -48,7 +59,7 @@ const data = await response.json();
                   title={event.title}
                   class="cursor-pointer appearance-none py-2 my-4 px-4 bg-transparent border-2 uppercase text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
                 >
-                  Tickets
+                  Buy
                 </a>
               </div>
             </div>

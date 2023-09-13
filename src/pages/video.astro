@@ -1,6 +1,23 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
+import { contentfulClient } from "../lib/contentful";
+import type { Entry } from "contentful";
+
+interface VideoItem {
+  contentTypeId: "videos";
+  fields: {
+    youtubeUrl: Entry;
+    title: string;
+    featured: boolean;
+  };
+}
+
+const entries = await contentfulClient.getEntries<VideoItem>({
+  content_type: "videos",
+});
+
+const featured = entries.items.find((item: any) => item.fields.featured);
 ---
 
 <Layout title="Videos">
@@ -15,77 +32,36 @@ import HeroBanner from "../components/HeroBanner.astro";
         <iframe
           class="w-full h-96"
           style="height:560px!important"
-          src="https://www.youtube.com/embed/kNNT16i-7wM"
-          title="YouTube video player"
+          src={featured?.fields.youtubeUrl}
+          title={featured?.fields.title}
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen></iframe>
       </div>
-      <div class="flex flex-col md:flex-row gap-4">
-        <div class="w-12/12 md:w-6/12 py-4">
-          <iframe
-            class="w-full"
-            height="315"
-            src="https://www.youtube.com/embed/gdMdDNoXf54"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
-        </div>
-        <div class="w-12/12 md:w-6/12 py-4">
-          <iframe
-            class="w-full"
-            height="315"
-            src="https://www.youtube.com/embed/k0NBTOyYpy8"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
-        </div>
-      </div>
-      <div class="flex flex-col md:flex-row gap-4">
-        <div class="w-12/12 md:w-6/12 py-4">
-          <iframe
-            class="w-full"
-            height="315"
-            src="https://www.youtube.com/embed/VER2SuNF7cY"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
-        </div>
-        <div class="w-12/12 md:w-6/12 py-4">
-          <iframe 
-            class="w-full"
-            height="315"
-            src="https://www.youtube.com/embed/d18Xa7BXMfU"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
-        </div>
-      </div>
-      <div class="flex flex-col md:flex-row gap-4">
-        <div class="w-12/12 md:w-6/12 py-4">
-          <iframe
-            class="w-full"
-            height="315"
-            src="https://www.youtube.com/embed/iYGnN-o4MTI"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
-        </div>
-        <div class="w-12/12 md:w-6/12 py-4">
-          <iframe
-            class="w-full"
-            height="315"
-            src="https://www.youtube.com/embed/ahn2LjKFUkk"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
-        </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {
+          entries &&
+            entries.items
+              .slice(0)
+              .reverse()
+              .map(
+                (item: any, i: number) =>
+                  !item.fields.featured && (
+                    <div class="w-12/12">
+                      <iframe
+                        class="w-full"
+                        height="315"
+                        src={item.fields.youtubeUrl}
+                        title={item.fields.title}
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                      />
+                    </div>
+                  )
+              )
+        }
       </div>
     </section>
   </main>

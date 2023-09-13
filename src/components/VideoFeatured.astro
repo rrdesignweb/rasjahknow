@@ -1,0 +1,63 @@
+---
+import Button from "./Button.astro";
+import { contentfulClient } from "../lib/contentful";
+import type { Entry } from "contentful";
+
+interface VideoItem {
+  contentTypeId: "videos";
+  fields: {
+    youtubeUrl: Entry | undefined;
+    coverImage: {
+      fields: {
+        file: {
+          url: string | undefined;
+          title: string;
+        };
+      };
+    };
+    title: string;
+    featured: boolean;
+  };
+}
+
+const entries = await contentfulClient.getEntries<VideoItem>({
+  content_type: "videos",
+});
+
+const featured = entries.items.find((item: any) => item.fields.featured);
+let youtubeUrl: string | undefined = featured?.fields.youtubeUrl;
+
+---
+
+<section class="flex bg-red-500">
+  <div class="md:w-8/12 h-full">
+    <a href={youtubeUrl} class="relative" target="_blank">
+      <img
+        src={featured?.fields.coverImage.fields.file?.url}
+        alt={featured?.fields.coverImage.fields.file?.title}
+        class="object-cover w-full"
+      />
+      <div class="absolute right-2/4 inset-y-0 grid items-center">
+        <div
+          class="w-12 h-12 bg-red-500 rounded-full ring-4 ring-white grid place-items-center hover:bg-red-400 transition"
+        >
+          <span class="sr-only">Watch the video</span>
+          <svg
+            class="ml-1 w-4"
+            viewBox="0 0 16 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 7.26795C16.3333 8.03775 16.3333 9.96225 15 10.7321L3 17.6603C1.66667 18.4301 1.01267e-06 17.4678 1.07997e-06 15.9282L1.68565e-06 2.0718C1.75295e-06 0.532196 1.66667 -0.430054 3 0.339746L15 7.26795Z"
+              fill="white"></path>
+          </svg>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="md:w-4/12 md:block hidden pl-8 py-10 ml-8 mt-auto mb-auto h-full">
+    <h2 class="text-white text-2xl uppercase font-medium mb-8">Videos</h2>
+    <Button href="/video" className="w-auto">View all videos</Button>
+  </div>
+</section>

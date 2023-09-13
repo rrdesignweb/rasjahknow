@@ -1,6 +1,7 @@
 ---
-import HeroBanner from "../components/HeroBanner.astro";
 import Layout from "../layouts/Layout.astro";
+import HeroBanner from "../components/HeroBanner.astro";
+import Button from "../components/Button.astro";
 ---
 
 <Layout title="Biography">
@@ -11,12 +12,8 @@ import Layout from "../layouts/Layout.astro";
       image="/carousel-1.jpeg"
     />
     <section class="w-11/12 md:w-8/12 container mx-auto md:my-20 my-6">
-      <!-- <div class="w-11/12 md:w-6/12 invisible hidden md:visible md:block">
-               
-            </div> -->
       <div class="w-12/12">
         <p>
-          <img src="/biography.jpeg" alt="Biography" class="float-left mb-5" />
           <h2 class="text-2xl font-medium mb-4 uppercase">About Ras Jahknow</h2>
           Iconic Melbourne reggae ensemble Ras Jahknow Band, bring their dynamic,
           high-energy, positive music to the people with a stage show guaranteed
@@ -77,10 +74,10 @@ import Layout from "../layouts/Layout.astro";
         </ul>
         <br />
         <p>
-          Ras Jahknow has spent time in numerous countries abroad, developing a
-          rounded, cultural understanding, and through the Ras Jahknow Band, he
-          aims to bridge the contemporary gaps in cultural understanding and
-          unity.
+          <img src="/biography.jpeg" alt="Biography" class="float-left mb-5" />
+          Ras Jahknow has spent time in numerous countries abroad, developing a rounded,
+          cultural understanding, and through the Ras Jahknow Band, he aims to bridge
+          the contemporary gaps in cultural understanding and unity.
         </p>
 
         <p>
@@ -142,6 +139,12 @@ import Layout from "../layouts/Layout.astro";
         </p>
       </div>
     </section>
+
+    <div class="bg-black height-96 mt-10 text-center mx-auto py-20">
+        <Button target="_blank" href="https://onepagelink.com/rasjahknow">
+          Download Press Kit
+        </Button>
+      </div>
   </main>
 </Layout>
 

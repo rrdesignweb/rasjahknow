@@ -32,7 +32,7 @@ const entries = await contentfulClient.getEntries<SlideItem>({
         entries.items.map((item: any, i: number) => (
           <div
             class="hidden duration-700 ease-in-out"
-            data-carousel-item={item.fields.firstSlide === true ? "active" : ""}
+            data-carousel-item={item.fields.firstSlide ? "active" : ""}
           >
             <img
               src={item.fields.image.fields.file?.url}
@@ -109,7 +109,7 @@ const entries = await contentfulClient.getEntries<SlideItem>({
     </h1>
     <div class="flex md:flex-row md:gap-4 flex-col text-center">
       <Button href="/events">View Events</Button>
-      <Button href="/biography">View Biography</Button>
+      <Button href="/music">View Music</Button>
     </div>
   </div>
 </div>
