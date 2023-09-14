@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
-
+import LightboxGallery from "../components/LightboxGallery";
 ---
 
 <Layout title="Gallery">
@@ -12,6 +12,7 @@ import HeroBanner from "../components/HeroBanner.astro";
       image="/carousel-3.jpeg"
     />
     <section class="w-8/12 mx-auto my-10">
+      <LightboxGallery client:load/>
       <!-- <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div class="grid gap-4">
           <div>
