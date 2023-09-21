@@ -25,8 +25,9 @@
     "instafeed.js": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-photo-album": "^2.3.0",
     "tailwindcss": "^3.3.3",
+    "uuid": "^9.0.1",
+    "uuidv4": "^6.2.13",
     "yet-another-react-lightbox": "^3.12.2"
   },
   "devDependencies": {

@@ -2,6 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
 import LightboxGallery from "../components/LightboxGallery";
+import { contentfulClient } from "../lib/contentful";
+import type { GalleryItem } from "../lib/types";
+
+const entries = await contentfulClient.getEntries<GalleryItem>({
+  content_type: "gallery",
+});
+
+const { items } = entries;
 ---
 
 <Layout title="Gallery">
@@ -11,104 +19,8 @@ import LightboxGallery from "../components/LightboxGallery";
       description="See all Ras Jahknow latest photos"
       image="/carousel-3.jpeg"
     />
-    <section class="w-8/12 mx-auto my-10">
-      <LightboxGallery client:load/>
-      <!-- <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="grid gap-4">
-          <div>
-            <a href="/carousel-3.jpeg" >
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg"
-                alt=""
-              />
-            </a>
-          </div>
-          <div>
-            <img
-              class="h-auto max-w-full rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              class="h-auto max-w-full rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg"
-              alt=""
-            />
-          </div>
-        </div>
-        <div class="grid gap-4">
-          <div>
-            <img
-              class="h-auto max-w-full rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              class="h-auto max-w-full rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              class="h-auto max-w-full rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg"
-              alt=""
-            />
-          </div>
-        </div>
-        <div class="grid gap-4">
-          <div>
-            <img
-              class="h-auto max-w-full rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              class="h-auto max-w-full rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              class="h-auto max-w-full rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg"
-              alt=""
-            />
-          </div>
-        </div>
-        <div class="grid gap-4">
-          <div>
-            <img
-              class="h-auto max-w-full rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
-              alt=""
-            />
-          </div>
-        </div>
-        <div>
-          <img
-            class="h-auto max-w-full rounded-lg"
-            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg"
-            alt=""
-          />
-        </div>
-        <div>
-          <img
-            class="h-auto max-w-full rounded-lg"
-            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg"
-            alt=""
-          />
-        </div>
-      </div> -->
+    <section class="w-9/12 mx-auto my-10">
+      <LightboxGallery data={items} client:load />
     </section>
   </main>
 </Layout>
