@@ -1,54 +1,26 @@
 ---
-const members = [
-  {
-    img: "ras-270x270.jpg",
-    imgAlt: "Ras Jahknow",
-    title: "Ras Jahknow",
-    role: "Lead Singer & Rhythm Guitar",
-  },
-  {
-    img: "judex-270x270.jpg",
-    imgAlt: "Judex Rose",
-    title: "Judex Rose",
-    role: "Lead Guitar & Backing Vocals",
-  },
-  {
-    img: "jono-james-270x270.jpg",
-    imgAlt: "Jono James",
-    title: "Jono James",
-    role: "Trombone",
-  },
-  {
-    img: "ben-270x270.png",
-    imgAlt: "Ben Caruana",
-    title: "Ben Caruana",
-    role: "Bass Guitar",
-  },
-  {
-    img: "joel-270x270.jpg",
-    imgAlt: "Joel Plymin",
-    title: "Joel Plymin",
-    role: "Saxaphone",
-  },
-  {
-    img: "chad-270x270.jpg",
-    imgAlt: "Chad Blaster",
-    title: "Chad Blaster",
-    role: "Drums",
-  },
-  {
-    img: "sandra-270x270.jpeg",
-    imgAlt: "Sandra Charon",
-    title: "Sandra Charon",
-    role: "Backing Vocals",
-  },
-  {
-    img: "tom-270x270.bmp",
-    imgAlt: "Tom",
-    title: "Tom",
-    role: "Keys",
-  }
-];
+import { contentfulClient } from "../lib/contentful";
+
+interface MemberItem {
+  contentTypeId: "bandMembers";
+  fields: {
+    name: string;
+    instrument: string;
+    image: {
+      fields: {
+        file: {
+          url: string | undefined;
+          title: string;
+        };
+      };
+    };
+    position: number;
+  };
+}
+
+const entries = await contentfulClient.getEntries<MemberItem>({
+  content_type: "bandMembers",
+});
 ---
 
 <div class="flex md:justify-between:flex-row flex-col items-start py-8">
@@ -66,14 +38,21 @@ const members = [
 </div>
 <div class="grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-4">
   {
-    members && members.map((item) => (
-      <div>
-        <img class="h-auto max-w-full grayscale" src={`/${item.img}`} alt={item.imgAlt} />
-        <div class="p-4">
-          <h3 class="font-medium text-lg">{item.title}</h3>
-          <p class="text-md">{item.role}</p>
-        </div>
-      </div>
-    ))
+    entries &&
+      entries.items
+        .sort((a, b) => a.fields.position - b.fields.position)
+        .map((item: any, i: number) => (
+          <div>
+            <img
+              class="h-auto max-w-full grayscale"
+              src={item.fields.image.fields.file?.url}
+              alt={item.fields.image.fields.file?.title}
+            />
+            <div class="p-4">
+              <h3 class="font-medium text-lg">{item.fields.name}</h3>
+              <p class="text-md">{item.fields.instrument}</p>
+            </div>
+          </div>
+        ))
   }
 </div>
