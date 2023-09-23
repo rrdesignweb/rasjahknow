@@ -5,7 +5,7 @@ import Button from "../components/Button.astro";
 import { contentfulClient } from "../lib/contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
-interface BioograhyItem {
+interface BioograhyPage {
   contentTypeId: "16pQYId6ifiX4DuiakzfST";
   fields: {
     title: string;
@@ -21,7 +21,7 @@ interface BioograhyItem {
   };
 }
 
-const entry = await contentfulClient.getEntry<BioograhyItem>(
+const entry = await contentfulClient.getEntry<BioograhyPage>(
   "16pQYId6ifiX4DuiakzfST"
 );
 

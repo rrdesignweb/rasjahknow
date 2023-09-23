@@ -1,70 +1,89 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
+import { contentfulClient } from "../lib/contentful";
+interface MusicPage {
+  contentTypeId: "FyMotfR5FPnEC66Zt2wRh";
+  fields: {
+    title: string;
+    subTitle: string;
+    heroBanner: {
+      fields: {
+        file: {
+          url: string | undefined;
+        };
+      };
+    };
+    content: string;
+  };
+}
+
+const entry = await contentfulClient.getEntry<MusicPage>(
+  "FyMotfR5FPnEC66Zt2wRh"
+);
+
+interface MusicItem {
+  contentTypeId: "albums";
+  fields: {
+    embed: string;
+  };
+  position: number;
+}
+
+const entries = await contentfulClient.getEntries<MusicItem>({
+  content_type: "albums",
+});
 ---
 
 <Layout title="Music">
   <main>
     <HeroBanner
-      title="Music"
-      description="See all Ras Jahknow Music"
-      image="/carousel-4.jpeg"
+      title={entry?.fields?.title}
+      description={entry?.fields?.subTitle}
+      image={entry?.fields.heroBanner.fields.file?.url}
     />
-    <section class="w-11/12 md:w-9/12 container mx-auto mt-10 mb-5">
-      <div class="flex flex-col md:flex-row gap-4">
-        <div class="w-12/12 md:w-6/12 py-4">
-          <iframe
-            class="border-0 w-full album"
-            src="https://bandcamp.com/EmbeddedPlayer/album=1782021373/size=large/bgcol=333333/linkcol=e32c14/minimal=true/transparent=true/"
-            seamless
-            ><a href="https://rasjahknow.bandcamp.com/album/jah-sta-li">Jah Sta
-            Li by RAS JAHKNOW</a></iframe
-          >
-        </div>
-        <div class="w-12/12 md:w-6/12 py-4">
-          <iframe
-            class="border-0 w-full album"
-            name="iframe1"
-            id="iframe1"
-            src="https://bandcamp.com/EmbeddedPlayer/track=1877009766/size=large/bgcol=333333/linkcol=e32c14/minimal=true/transparent=true/"
-            seamless
-            ><a href="https://rasjahknow.bandcamp.com/track/what-a-gwan">What A
-            Gwan by Ras Jahknow</a></iframe
-          >
-        </div>
-      </div>
-      <div class="flex flex-col md:flex-row gap-4">
-        <div class="w-12/12 md:w-6/12 py-4">
-          <iframe
-            class="border-0 w-full album"
-            src="https://bandcamp.com/EmbeddedPlayer/album=1462385926/size=large/bgcol=333333/linkcol=e32c14/minimal=true/transparent=true/"
-            seamless
-            ><a href="https://rasjahknow.bandcamp.com/album/jah-sta-li-dub">Jah
-            Sta Li Dub by Ras Jahknow</a>
-          </iframe>
-        </div>
-        <div class="w-12/12 md:w-6/12 py-4">
-          <iframe
-            class="border-0 w-full album"
-            src="https://bandcamp.com/EmbeddedPlayer/track=860860485/size=large/bgcol=333333/linkcol=e32c14/tracklist=false/transparent=true/"
-            seamless
-            ><a href="https://rasjahknow.bandcamp.com/track/get-up-live">GET UP
-            &amp; LIVE by RAS JAHKNOW</a></iframe
-          >
-        </div>
-      </div>
+    <section
+      class="w-11/12 md:w-9/12 grid md:grid-cols-2 grid-col-1 gap-2 container mx-auto mt-10 mb-5"
+    >
+      {
+        entries &&
+          entries.items
+            .sort((a, b) => a.fields.position - b.fields.position)
+            .map((item: any, i: number) => {
+              return <Fragment key={i} set:html={item?.fields.embed} />;
+            })
+      }
     </section>
   </main>
 </Layout>
 
 <style is:inline>
-  .album {
-    height: 500px;
-  }
-
-  @media only screen and (min-width: 767px)  {
-    .album {
-      height: 680px;
+  @media only screen and (min-width: 767px) {
+    iframe {
+      height: 750px;
+      width: 100%;
     }
   }
 </style>
+
+<script is:inline>
+  (function (w, d) {
+    var id = "embedly-platform",
+      n = "script";
+    if (!d.getElementById(id)) {
+      w.embedly =
+        w.embedly ||
+        function () {
+          (w.embedly.q = w.embedly.q || []).push(arguments);
+        };
+      var e = d.createElement(n);
+      e.id = id;
+      e.async = 1;
+      e.src =
+        ("https:" === document.location.protocol ? "https" : "http") +
+        "://cdn.embedly.com/widgets/platform.js";
+      var s = d.getElementsByTagName(n)[0];
+      s.parentNode.insertBefore(e, s);
+    }
+  })(window, document);
+</script>

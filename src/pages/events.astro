@@ -2,14 +2,35 @@
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
 import EventsList from "../components/EventsList.astro";
+import { contentfulClient } from "../lib/contentful";
+
+interface EventsPage {
+  contentTypeId: "2uRFrRPB4XpQ64UwvWNQHH";
+  fields: {
+    title: string;
+    subTitle: string;
+    heroBanner: {
+      fields: {
+        file: {
+          url: string | undefined;
+        };
+      };
+    };
+    content: string;
+  };
+}
+
+const entry = await contentfulClient.getEntry<EventsPage>(
+  "2uRFrRPB4XpQ64UwvWNQHH"
+);
 ---
 
 <Layout title="Events Ras Jahknow">
   <main>
     <HeroBanner
-      title="Events"
-      description="See all Ras Jahknow Gigs & Tours"
-      image="/carousel-2.jpeg"
+      title={entry?.fields?.title}
+      description={entry?.fields?.subTitle}
+      image={entry?.fields.heroBanner.fields.file?.url}
     />
     <EventsList/>
   </main>

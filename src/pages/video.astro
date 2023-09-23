@@ -2,14 +2,32 @@
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
 import { contentfulClient } from "../lib/contentful";
-import type { Entry } from "contentful";
+interface VideoPage {
+  contentTypeId: "33JXxifb79nwQyQSBTdJaY";
+  fields: {
+    title: string;
+    subTitle: string;
+    heroBanner: {
+      fields: {
+        file: {
+          url: string | undefined;
+        };
+      };
+    };
+    content: string;
+  };
+}
 
+const entry = await contentfulClient.getEntry<VideoPage>(
+  "33JXxifb79nwQyQSBTdJaY"
+);
 interface VideoItem {
   contentTypeId: "videos";
   fields: {
-    youtubeUrl: Entry;
+    youtubeUrl: string;
     title: string;
     featured: boolean;
+    youtube: string;
   };
 }
 
@@ -23,42 +41,31 @@ const featured = entries.items.find((item: any) => item.fields.featured);
 <Layout title="Videos">
   <main>
     <HeroBanner
-      title="Videos"
-      description="See all Ras Jahknow Videos"
-      image="/carousel-5.jpeg"
+      title={entry?.fields?.title}
+      description={entry?.fields?.subTitle}
+      image={entry?.fields.heroBanner.fields.file?.url}
     />
     <section class="w-11/12 md:w-9/12 mx-auto my-10">
-      <div class="w-12/12 md:w-12/12 py-4">
-        <iframe
-          class="w-full h-96"
-          style="height:560px!important"
-          src={featured?.fields.youtubeUrl}
-          title={featured?.fields.title}
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen></iframe>
-      </div>
+      {
+        featured && (
+          <div class="w-12/12 md:w-12/12 py-4">
+            <Fragment set:html={featured?.fields.youtube} />
+          </div>
+        )
+      }
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {
           entries &&
             entries.items
-              .slice(0)
-              .reverse()
               .map(
                 (item: any, i: number) =>
-                  !item.fields.featured && (
+                  !item.fields.featured ? (
                     <div class="w-12/12">
-                      <iframe
-                        class="w-full"
-                        height="315"
-                        src={item.fields.youtubeUrl}
-                        title={item.fields.title}
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen
-                      />
+                      <Fragment set:html={item.fields.youtube} />
                     </div>
+                  ) : (
+                    null
                   )
               )
         }
@@ -66,3 +73,25 @@ const featured = entries.items.find((item: any) => item.fields.featured);
     </section>
   </main>
 </Layout>
+
+<script is:inline>
+  (function (w, d) {
+    var id = "embedly-platform",
+      n = "script";
+    if (!d.getElementById(id)) {
+      w.embedly =
+        w.embedly ||
+        function () {
+          (w.embedly.q = w.embedly.q || []).push(arguments);
+        };
+      var e = d.createElement(n);
+      e.id = id;
+      e.async = 1;
+      e.src =
+        ("https:" === document.location.protocol ? "https" : "http") +
+        "://cdn.embedly.com/widgets/platform.js";
+      var s = d.getElementsByTagName(n)[0];
+      s.parentNode.insertBefore(e, s);
+    }
+  })(window, document);
+</script>
