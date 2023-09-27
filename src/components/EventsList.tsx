@@ -22,12 +22,12 @@ const EventsList = () => {
     <section className="bg-black bg-opacity-80 mx-auto pb-8 pt-4">
       <div className="w-11/12 md:w-9/12 mx-auto my-5">
         <div className="flex justify-between items-center">
-          <h3 className="text-white text-2xl font-medium py-10 uppercase">
+          <h3 className="text-white text-2xl font-semibold py-10 uppercase">
             Upcoming Shows
           </h3>
         </div>
         <div
-          className="bg-gray-500 bg-opacity-70 py-4 p-8 mb-2 flex justify-between text-white uppercase font-medium"
+          className="bg-gray-500 bg-opacity-70 py-4 p-8 mb-2 flex justify-between text-white uppercase font-semibold"
         >
           <div className="w-8/12 md:w-3/12">Date</div>
           <div className="w-9/12 md:w-3/12 md:flex">Venue</div>
