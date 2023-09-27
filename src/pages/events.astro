@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
-import EventsList from "../components/EventsList.astro";
+import EventsList from "../components/EventsList.tsx";
 import { contentfulClient } from "../lib/contentful";
 
 interface EventsPage {
@@ -35,3 +35,4 @@ const entry = await contentfulClient.getEntry<EventsPage>(
     <EventsList client:load/>
   </main>
 </Layout>
+../components/EventsList.tsx
