@@ -32,6 +32,6 @@ const entry = await contentfulClient.getEntry<EventsPage>(
       description={entry?.fields?.subTitle}
       image={entry?.fields.heroBanner.fields.file?.url}
     />
-    <EventsList/>
+    <EventsList client:load/>
   </main>
 </Layout>
