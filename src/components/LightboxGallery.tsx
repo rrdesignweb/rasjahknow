@@ -91,7 +91,7 @@ const LightboxGallery = ({ data }: LightboxGalleryProps) => {
     }
 
     const handleSetSelectedCategory = (item: any) => {
-        console.log(item)
+        //console.log(item)
     }
 
     return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { format } from "date-fns";
 
 
@@ -27,29 +27,29 @@ const EventsList = () => {
           </h3>
         </div>
         <div
-          className="bg-gray-500 bg-opacity-70 py-4 p-8 mb-2 flex justify-between text-white uppercase font-semibold"
+          className="bg-gray-500 bg-opacity-70 py-4 p-8 mb-2 grid grid-cols-[0.25fr_0.5fr_0.5fr_0.25fr] text-white uppercase font-semibold"
         >
-          <div className="w-8/12 md:w-3/12">Date</div>
-          <div className="w-9/12 md:w-3/12 md:flex">Venue</div>
-          <div className="w-3/12 hidden md:flex">Location</div>
-          <div className="w-full md:w-3/12 text-right">Tickets</div>
+          <div className="">Date</div>
+          <div className="md:flex">Event</div>
+          <div className="hidden md:flex">Location</div>
+          <div className="w-full text-right">Tickets</div>
         </div>
-        {!data && <div className="text-center text-white p-4">Loading...</div>}
+        {!data && <div className="bg-gray-600 bg-opacity-70 p-8 mb-2 text-center text-white">Loading...</div>}
         {
           data && data
             .slice(0)
             .reverse()
             .map((event: any, i:number) => {
               return (
-                <div key={i} className="bg-gray-600 bg-opacity-70 p-8 mb-2 flex justify-between items-center text-white">
-                  <div className="md:w-3/12 hidden md:flex">
+                <div key={i} className="bg-gray-600 bg-opacity-70 p-8 mb-2 grid grid-cols-[0.25fr_0.5fr_0.5fr_0.25fr] items-center text-white">
+                  <div className="hidden md:flex">
                     {format(new Date(event.datetime), "dd/MM/yyyy")}
                   </div>
-                  <div className="w-8/12 md:w-0 flex md:hidden">
+                  <div className="md:w-0 flex md:hidden">
                     {format(new Date(event.datetime), "dd/MM/yy")}
                   </div>
-                  <div className="w-9/12 md:w-3/12 md:flex">{event.venue.name}</div>
-                  <div className="w-3/12 hidden md:flex flex-col">
+                  <div className="md:flex">{event.venue.name}</div>
+                  <div className="hidden md:flex flex-col">
                     <a
                       className="hover:underline"
                       target="_blank"
@@ -65,7 +65,7 @@ const EventsList = () => {
                       </div>
                     </a>
                   </div>
-                  <div className="w-full md:w-3/12 text-right">
+                  <div className="w-full text-right">
                     <a
                       href={event.url}
                       rel="noreferrer"
