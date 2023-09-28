@@ -1,21 +1,48 @@
-import { useState, useRef, createRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import { v4 as uuidv4 } from "uuid";
 import "yet-another-react-lightbox/styles.css";
-import type { GalleryItem } from "../lib/types";
 
 interface LightboxGalleryProps {
-    data: any
+    data: any;
 }
+
+// const LightboxGalleryCategories = (albums: any[], clickHandler: any) => {
+//     const handleCategroyOnClick = (item: string) => {
+//         clickHandler(item)
+//     };
+
+//     return albums && albums.map((item: string) => (
+//         <div onClick={() => handleCategroyOnClick(item)}>
+//             {item}
+//         </div>
+//     ))
+// };
+
+
 
 const LightboxGallery = ({ data }: LightboxGalleryProps) => {
     const [open, setOpen] = useState<boolean>(false);
     const [imageIndex, setImageIndex] = useState<number>();
     const [list] = useState(data);
-    //const imageRef = useRef([...new Array(list.length)].map(() => undefined));
+    const [albums, setAlbums] = useState([]);
+
     let masonaryCols: any[] = [];
     let imageIndexCount: number = -1;
-    const images = data.map((item: any) => ({ ["src"]: item.fields.image.fields.file?.url }));
+
+    const images = data.map((item: any) => ({
+        src: item.fields.image.fields.file?.url,
+        alt: item.fields.image.fields.file?.title,
+    }));
+
+    useEffect(() => {
+        const albumCategories: any[] = [];
+        data && data.map((item: any, i: number) => {
+            albumCategories.push(item.fields.album)
+        });
+        setAlbums([].concat.apply([], albumCategories));
+    }, [])
+
 
     const populateImage = (listTriple: any[]) => {
         const template = listTriple && listTriple.map((item: any, i: number) => {
@@ -26,9 +53,9 @@ const LightboxGallery = ({ data }: LightboxGalleryProps) => {
                     <img
                         className="max-w-full rounded-lg hover:cursor-pointer object-cover h-full"
                         src={item.fields.image?.fields.file?.url}
-                        alt={item.fields.image?.fields.file?.title}
+                        alt={item.fields.name}
                         data-index={imageIndexCount}
-                        onClick={(e) => onOpenImage(e, i)}
+                        onClick={(e) => onOpenImage(e)}
                     />
                 </div>
             )
@@ -56,15 +83,21 @@ const LightboxGallery = ({ data }: LightboxGalleryProps) => {
         populateImage(listTriple);
     }
 
-    const onOpenImage = (e: any, i: any) => {
+    const onOpenImage = (e: any) => {
         setOpen(true)
         let et = e.currentTarget;
         let dataIndex = parseInt(et.getAttribute("data-index"));
         setImageIndex(dataIndex)
     }
 
+    const handleSetSelectedCategory = (item: any) => {
+        console.log(item)
+    }
+
     return (
         <>
+            {/* <LightboxGalleryCategories albums={albums} clickHandler={handleSetSelectedCategory} /> */}
+
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {masonaryCols}
             </div>

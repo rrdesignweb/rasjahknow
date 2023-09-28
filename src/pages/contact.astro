@@ -2,6 +2,22 @@
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
 import { contentfulClient } from "../lib/contentful";
+import {
+  RenderNode,
+  documentToHtmlString,
+} from "@contentful/rich-text-html-renderer";
+import {
+  Document,
+  Mark,
+  Text,
+  BLOCKS,
+  MARKS,
+  INLINES,
+  Block,
+  Inline,
+  helpers,
+} from "@contentful/rich-text-types";
+
 interface ContactPage {
   contentTypeId: "eRL0cxhoQMb3vZTgIHiUO";
   fields: {
@@ -21,6 +37,17 @@ interface ContactPage {
 const entry = await contentfulClient.getEntry<ContactPage>(
   "eRL0cxhoQMb3vZTgIHiUO"
 );
+
+let options = {
+  renderNode: {
+    [BLOCKS.HEADING_2]: (node: any, next: any) =>
+      `<h2 class="text-2xl font-semibold mb-4 uppercase">${next(node.content)}</h2>`,
+    [INLINES.HYPERLINK]: (node: any, next: any) =>
+      `<p><a href="${node.data.uri}" class="text-red-500 hover:text-red-700">${next(node.content)}</a></p>`,
+  },
+};
+
+let bodyHTML = entry ? documentToHtmlString(entry.fields.content, options) : "";
 ---
 
 <Layout title="Contact">
@@ -56,7 +83,7 @@ const entry = await contentfulClient.getEntry<ContactPage>(
                 name="name"
                 placeholder="Your name"
                 required
-                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-m"
+                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m"
               />
             </label>
           </div>
@@ -69,7 +96,7 @@ const entry = await contentfulClient.getEntry<ContactPage>(
                 placeholder="your@email.com"
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                 required
-                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-m"
+                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m"
               />
             </label>
           </div>
@@ -80,7 +107,7 @@ const entry = await contentfulClient.getEntry<ContactPage>(
                 type="text"
                 name="subject"
                 placeholder="Subject"
-                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-m"
+                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m"
               />
             </label>
           </div>
@@ -92,7 +119,7 @@ const entry = await contentfulClient.getEntry<ContactPage>(
                 name="message"
                 rows="12"
                 required
-                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-m"
+                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m"
               ></textarea>
             </label>
           </div>
@@ -109,31 +136,7 @@ const entry = await contentfulClient.getEntry<ContactPage>(
       </div>
       <div class="w-12/12 md:w-6/12">
         <div class="">
-          <div>
-            <h2 class="text-2xl font-semibold mb-4 uppercase">Get In Touch!</h2>
-          </div>
-
-          <div class="">
-            <p>Feel free to call us directly or simply complete our form</p>
-
-            <div class="">
-              <p>
-                <span>Bookings Phone:</span><br /><span>Jorge Abreu</span><br
-                /><a
-                  class="text-red-500 hover:text-red-700"
-                  href="tel:+61 416 652 906">+61 416 652 906</a
-                >
-              </p>
-              <p>
-                <a
-                  class="text-red-500 hover:text-red-700"
-                  href="mailto:rasjahknowband@gmail.com"
-                  >rasjahknowband@gmail.com</a
-                >
-              </p>
-              <p>Melbourne Australia</p>
-            </div>
-          </div>
+          <Fragment set:html={bodyHTML} />
         </div>
       </div>
     </section>
