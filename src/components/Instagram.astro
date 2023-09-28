@@ -31,15 +31,21 @@ const result = await response.json();
   </h2>
   <div class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-3 gap-1">
     {
-      result.data.map((item: any) => {
+      result.data.map((item: any, i: number) => {
         if (item.media_type === "IMAGE") {
           return (
-            <a href={item.permalink} target="_blank">
-              <div class="relative w-full md:h-60 sm:h-48 h-80">
-                <div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0" />
-                <img class="object-cover w-full h-full" src={item.media_url} />
-              </div>
-            </a>
+            <div>
+              <a href={item.permalink} target="_blank">
+                <div class="relative w-full md:h-60 sm:h-48 h-80">
+                  <div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0" />
+                  <img
+                    class="object-cover w-full h-full"
+                    src={item.media_url}
+                    alt="..."
+                  />
+                </div>
+              </a>
+            </div>
           );
         }
         if (item.media_type === "VIDEO") {
@@ -64,6 +70,7 @@ const result = await response.json();
                 <img
                   class="object-cover w-full h-full"
                   src={item.thumbnail_url}
+                  alt="..."
                 />
               </div>
             </a>

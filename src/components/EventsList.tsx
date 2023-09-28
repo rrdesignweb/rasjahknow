@@ -8,7 +8,7 @@ const EventsList = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       const artist = "Ras Jahknow Band";
-      const apiUrl = `https://rest.bandsintown.com/artists/${artist}/events?app_id=squarespace-todd-wright-gxya&date=all`;
+      const apiUrl = `https://rest.bandsintown.com/artists/${artist}/events?app_id=squarespace-todd-wright-gxya&date=upcoming`;
       const response = await fetch(apiUrl);
       const data = await response.json();
       setData(data)
@@ -39,9 +39,9 @@ const EventsList = () => {
           data && data
             .slice(0)
             .reverse()
-            .map((event: any) => {
+            .map((event: any, i:number) => {
               return (
-                <div className="bg-gray-600 bg-opacity-70 p-8 mb-2 flex justify-between items-center text-white">
+                <div key={i} className="bg-gray-600 bg-opacity-70 p-8 mb-2 flex justify-between items-center text-white">
                   <div className="md:w-3/12 hidden md:flex">
                     {format(new Date(event.datetime), "dd/MM/yyyy")}
                   </div>

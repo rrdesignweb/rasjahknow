@@ -23,7 +23,7 @@ const entries = await contentfulClient.getEntries<MusicItem>({
       <h2 class="text-white text-2xl uppercase font-semibold mb-8">Music</h2>
       <Button href="/music">View all albums</Button>
     </div>
-    <div class="Albums flex p-10 gap-x-8 gap-y-2 overflow-x-auto ">
+    <div class="Albums flex p-10 gap-x-8 gap-y-2 overflow-x-auto " tabindex="0">
       {
         entries &&
           entries.items

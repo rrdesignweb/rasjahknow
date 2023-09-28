@@ -10,7 +10,7 @@ interface MemberItem {
       fields: {
         file: {
           url: string | undefined;
-          title: string;
+          title: string | undefined;
         };
       };
     };
@@ -46,7 +46,7 @@ const entries = await contentfulClient.getEntries<MemberItem>({
             <img
               class="h-auto w-96 grayscale object-cover"
               src={item.fields.image.fields.file?.url}
-              alt={item.fields.image.fields.file?.title}
+              alt={item.fields.name + " - " + item.fields.instrument}
             />
             <div class="p-4">
               <h3 class="font-semibold text-lg">{item.fields.name}</h3>

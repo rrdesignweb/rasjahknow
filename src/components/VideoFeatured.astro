@@ -25,7 +25,7 @@ const entries = await contentfulClient.getEntries<VideoItem>({
 
 const featured = entries.items.find((item: any) => item.fields.featured);
 let ythref = featured?.fields.youtube?.match(/href="([^"]*)/)[1];
-
+console.log(featured)
 ---
 
 <section class="flex bg-red-500">
@@ -33,7 +33,7 @@ let ythref = featured?.fields.youtube?.match(/href="([^"]*)/)[1];
     <a href={ythref} class="relative" target="_blank">
       <img
         src={featured?.fields.coverImage.fields.file?.url}
-        alt={featured?.fields.coverImage.fields.file?.title}
+        alt={featured?.fields.title}
         class="object-cover w-full"
       />
       <div class="absolute right-2/4 inset-y-0 grid items-center">
