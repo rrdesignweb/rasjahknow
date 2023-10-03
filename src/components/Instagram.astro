@@ -31,7 +31,7 @@ const result = await response.json();
   </h2>
   <div class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-3 gap-1">
     {
-      result.data.map((item: any, i: number) => {
+      result && result.data.map((item: any, i: number) => {
         if (item.media_type === "IMAGE") {
           return (
             <div>
