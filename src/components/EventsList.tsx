@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 
-
 const EventsList = () => {
   const [data, setData] = useState<any>();
 
