@@ -76,7 +76,7 @@ const LightboxGallery = ({ data }: LightboxGalleryProps) => {
     }, [albums])
 
     useEffect(() => {
-        console.log("Photo album on chair")
+        //console.log("Photo album on chair")
     }, [lightboxImages])
 
     const filterAlbumImages = (value: string) => {

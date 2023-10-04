@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
-import Button from "../components/Button.tsx";
+import Button from "../components/Button";
 import { contentfulClient } from "../lib/contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
@@ -68,4 +68,3 @@ let bodyHTML = entry ? documentToHtmlString(entry.fields.content, options) : "";
     margin-bottom: 10px;
   }
 </style>
-../components/Button.tsx

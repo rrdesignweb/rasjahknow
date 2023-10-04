@@ -24,7 +24,7 @@ const entries = await contentfulClient.getEntries<VideoItem>({
 });
 
 const featured = entries.items.find((item: any) => item.fields.featured);
-let ythref = featured?.fields.youtube?.match(/href="([^"]*)/)[1];
+let ythref = featured?.fields?.youtube?.match(/href="([^"]*)/)[1];
 
 ---
 
