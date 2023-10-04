@@ -22,7 +22,7 @@ const Button = ({ href, className, target = "_self", type, onClick, children }: 
           <a
             target={target}
             href={href}
-            className={`cursor-pointer appearance-none py-2 my-4 px-4 border-2 uppercase  font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 ${className ? className : "bg-transparent text-white"
+            className={`cursor-pointer appearance-none py-2 my-4 px-4 border-2 uppercase font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 ${className ? className : "bg-transparent text-white"
               }`}
           >
             {children}

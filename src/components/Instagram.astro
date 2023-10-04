@@ -27,56 +27,105 @@ const result = await response.json();
 
 <section>
   <h2 class="font-semibold uppercase text-2xl mb-6 text-white">
-    FOLLOW <a href="https://www.instagram.com/rasjahknow/" class="hover:underline" target="_blank">@RASJAHKNOW</a>
+    FOLLOW <a
+      href="https://www.instagram.com/rasjahknow/"
+      class="hover:underline"
+      target="_blank">@RASJAHKNOW</a
+    >
   </h2>
   <div class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-3 gap-1">
     {
-      result && result.data.map((item: any, i: number) => {
-        if (item.media_type === "IMAGE") {
-          return (
-            <div>
+      result && result.data ? (
+        result.data.map((item: any, i: number) => {
+          if (item.media_type === "IMAGE") {
+            return (
+              <div>
+                <a href={item.permalink} target="_blank">
+                  <div class="relative w-full md:h-60 sm:h-48 h-80">
+                    <div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0" />
+                    <img
+                      class="object-cover w-full h-full"
+                      src={item.media_url}
+                      alt="..."
+                    />
+                  </div>
+                </a>
+              </div>
+            );
+          }
+          if (item.media_type === "VIDEO") {
+            return (
               <a href={item.permalink} target="_blank">
                 <div class="relative w-full md:h-60 sm:h-48 h-80">
+                  <div class="absolute left-0 bottom-0 top-0 right-0 z-30 flex justify-center items-center flex-col">
+                    <span class="sr-only">Watch the video</span>
+                    <svg
+                      class="ml-1 w-4"
+                      viewBox="0 0 16 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M15 7.26795C16.3333 8.03775 16.3333 9.96225 15 10.7321L3 17.6603C1.66667 18.4301 1.01267e-06 17.4678 1.07997e-06 15.9282L1.68565e-06 2.0718C1.75295e-06 0.532196 1.66667 -0.430054 3 0.339746L15 7.26795Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </div>
                   <div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0" />
                   <img
                     class="object-cover w-full h-full"
-                    src={item.media_url}
+                    src={item.thumbnail_url}
                     alt="..."
                   />
                 </div>
               </a>
+            );
+          }
+        })
+      ) : (
+        <div>
+          <a href={"#"}>
+            <div class="relative w-full md:h-60 sm:h-48 h-80">
+              <div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0" />
             </div>
-          );
-        }
-        if (item.media_type === "VIDEO") {
-          return (
-            <a href={item.permalink} target="_blank">
-              <div class="relative w-full md:h-60 sm:h-48 h-80">
-                <div class="absolute left-0 bottom-0 top-0 right-0 z-30 flex justify-center items-center flex-col">
-                  <span class="sr-only">Watch the video</span>
-                  <svg
-                    class="ml-1 w-4"
-                    viewBox="0 0 16 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M15 7.26795C16.3333 8.03775 16.3333 9.96225 15 10.7321L3 17.6603C1.66667 18.4301 1.01267e-06 17.4678 1.07997e-06 15.9282L1.68565e-06 2.0718C1.75295e-06 0.532196 1.66667 -0.430054 3 0.339746L15 7.26795Z"
-                      fill="white"
-                    />
-                  </svg>
-                </div>
-                <div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0" />
-                <img
-                  class="object-cover w-full h-full"
-                  src={item.thumbnail_url}
-                  alt="..."
-                />
-              </div>
-            </a>
-          );
-        }
-      })
+          </a>
+        </div>
+        <div>
+          <a href={"#"}>
+            <div class="relative w-full md:h-60 sm:h-48 h-80">
+              <div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0" />
+            </div>
+          </a>
+        </div>
+        <div>
+          <a href={"#"}>
+            <div class="relative w-full md:h-60 sm:h-48 h-80">
+              <div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0" />
+            </div>
+          </a>
+        </div>
+        <div>
+          <a href={"#"}>
+            <div class="relative w-full md:h-60 sm:h-48 h-80">
+              <div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0" />
+            </div>
+          </a>
+        </div>
+        <div>
+          <a href={"#"}>
+            <div class="relative w-full md:h-60 sm:h-48 h-80">
+              <div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0" />
+            </div>
+          </a>
+        </div>
+        <div>
+          <a href={"#"}>
+            <div class="relative w-full md:h-60 sm:h-48 h-80">
+              <div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0" />
+            </div>
+          </a>
+        </div>  
+      )
     }
   </div>
 </section>

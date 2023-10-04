@@ -26,29 +26,27 @@ const EventsList = () => {
           </h3>
         </div>
         <div
-          className="bg-gray-500 bg-opacity-70 py-4 p-8 mb-2 grid grid-cols-[0.25fr_0.5fr_0.5fr_0.25fr] text-white uppercase font-semibold"
+          className="bg-gray-500 bg-opacity-70 py-4 p-8 mb-2  hidden md:grid  md:grid-cols-[0.25fr_0.5fr_0.5fr_0.25fr] text-white uppercase font-semibold"
         >
           <div className="">Date</div>
           <div className="md:flex">Event</div>
           <div className="hidden md:flex">Location</div>
-          <div className="w-full text-right">Tickets</div>
+          <div className="w-full md:text-right">Tickets</div>
         </div>
         {!data && <div className="bg-gray-600 bg-opacity-70 p-8 mb-2 text-center text-white">Loading...</div>}
         {
           data && data
-            .slice(0)
-            .reverse()
-            .map((event: any, i:number) => {
+            .map((event: any, i: number) => {
               return (
-                <div key={i} className="bg-gray-600 bg-opacity-70 p-8 mb-2 grid grid-cols-[0.25fr_0.5fr_0.5fr_0.25fr] items-center text-white">
-                  <div className="hidden md:flex">
-                    {format(new Date(event.datetime), "dd/MM/yyyy")}
+                <div key={i} className="bg-gray-600 bg-opacity-70 p-8 mb-2 grid grid-cols-[1fr_0.5fr_0.5f] md:grid-cols-[0.25fr_0.5fr_0.5fr_0.25fr] items-center text-white">
+                  <div className="hidden md:flex uppercase font-medium mb-2">
+                    {format(new Date(event.datetime), "LLL d eee")}
                   </div>
-                  <div className="md:w-0 flex md:hidden">
-                    {format(new Date(event.datetime), "dd/MM/yy")}
+                  <div className="md:w-0 flex md:hidden uppercase font-medium mb-2">
+                    {format(new Date(event.datetime), "LLL d eee")}
                   </div>
-                  <div className="md:flex">{event.venue.name}</div>
-                  <div className="hidden md:flex flex-col">
+                  <div className="md:flex mb-2">{event.venue.name}</div>
+                  <div className="hidden md:flex flex-col mb-2">
                     <a
                       className="hover:underline"
                       target="_blank"
@@ -64,15 +62,15 @@ const EventsList = () => {
                       </div>
                     </a>
                   </div>
-                  <div className="w-full text-right">
+                  <div className="w-full md:text-right mt-2">
                     <a
                       href={event.url}
                       rel="noreferrer"
                       target="_blank"
                       title={event.title}
-                      className="cursor-pointer appearance-none py-2 my-4 px-4 bg-transparent border-2 uppercase text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                      className="w-full cursor-pointer appearance-none py-2 my-4 px-4 bg-transparent border-2 uppercase text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
                     >
-                      Buy
+                      Buy Tickets
                     </a>
                   </div>
                 </div>

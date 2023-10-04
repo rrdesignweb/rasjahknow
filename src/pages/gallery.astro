@@ -30,6 +30,8 @@ const entries = await contentfulClient.getEntries<GalleryItem>({
 });
 
 const { items } = entries;
+
+console.log(items)
 ---
 
 <Layout title="Gallery">
