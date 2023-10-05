@@ -18,9 +18,9 @@ const LightboxGalleryFilters: React.FC<IFilters> = ({ albums, clickHandler }: IF
     };
 
     return (
-        <div className="mb-10 flex justify-start items-center">
-            <label htmlFor="AlbumList" className="mr-6">Photo Albums:</label>
-            <select id="AlbumList" className="rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75" onChange={(e: any) => handleAlbumOnClick(e)}>
+        <div className="mb-10 flex justify-end items-center">
+            <label htmlFor="AlbumList" className="mr-6 md:flex hidden">Photo Albums: </label>
+            <select id="AlbumList" className="md:w-auto w-full border-0 bg-gray-200 py-3 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m" onChange={(e: any) => handleAlbumOnClick(e)}>
                 {albums && albums.map((item: string, i: number) => (
                     <option key={i} value={item}>{item}</option>
                 ))}
