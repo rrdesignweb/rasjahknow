@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import SpinnerSVG from "/spinner-white.svg"
 
 const EventsList = () => {
   const [data, setData] = useState<any>();
@@ -33,7 +34,7 @@ const EventsList = () => {
           <div className="hidden md:flex">Location</div>
           <div className="w-full md:text-right">Tickets</div>
         </div>
-        {!data && <div className="bg-gray-600 bg-opacity-70 p-8 mb-2 text-center text-white">Loading...</div>}
+        {!data && <div className="bg-gray-600 bg-opacity-70 p-8 mb-2 text-center text-white w-full flex justify-center"><img src={SpinnerSVG} alt="Spinner"/></div>}
         {
           data && data
             .map((event: any, i: number) => {

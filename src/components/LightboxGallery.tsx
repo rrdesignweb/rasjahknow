@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Lightbox from "yet-another-react-lightbox";
 import Captions from "yet-another-react-lightbox/plugins/captions";
+import SpinnerSVG from "/spinner.svg"
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/captions.css";
 import "yet-another-react-lightbox/styles.css";
@@ -9,6 +10,9 @@ import "yet-another-react-lightbox/styles.css";
 interface IFilters {
     albums: any[];
     clickHandler: (e: any) => void;
+}
+interface ILightboxGalleryProps {
+    data: any;
 }
 
 const LightboxGalleryFilters: React.FC<IFilters> = ({ albums, clickHandler }: IFilters) => {
@@ -29,20 +33,16 @@ const LightboxGalleryFilters: React.FC<IFilters> = ({ albums, clickHandler }: IF
     )
 };
 
-interface LightboxGalleryProps {
-    data: any;
-}
-
-const LightboxGallery = ({ data }: LightboxGalleryProps) => {
+const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
     const [open, setOpen] = useState<boolean>(false);
     const [imageIndex, setImageIndex] = useState<number>();
-
+    const [isLoading, setIsLoading] = useState(false);
     const [albums, setAlbums] = useState<any[]>([]);
     const [lightboxImages, setLightboxImages] = useState<any[]>([]);
 
-    let [masonaryCols, setMasonaryCols] = useState<any>();
+    const [masonaryCols, setMasonaryCols] = useState<any[]>([]);
     let imageIndexCount: number = -1;
-
+    let _delay = 750;
     let wrappedCols: any = [];
 
     let images = data && data.map((item: any) => ({
@@ -68,20 +68,20 @@ const LightboxGallery = ({ data }: LightboxGalleryProps) => {
     }, [])
 
     useEffect(() => {
-        albums && albums.find((item: string, i: number) => {
-            return (
-                i === 0 && filterAlbumImages(item)
-            )
-        })
+        setTimeout(() => {
+            albums && albums.find((item: string, i: number) => {
+                return (
+                    i === 0 && filterAlbumImages(item)
+                )
+            })
+        }, _delay)
     }, [albums])
 
     useEffect(() => {
-        //console.log("Photo album on chair")
-    }, [lightboxImages])
+    }, [lightboxImages, masonaryCols])
 
     const filterAlbumImages = (value: string) => {
         imageIndexCount = -1;
-
         const newImages = images.filter((item: any, i: number) => {
             return item.title === value
         })
@@ -102,6 +102,7 @@ const LightboxGallery = ({ data }: LightboxGalleryProps) => {
 
         setMasonaryCols(wrappedCols)
         setLightboxImages(newImages);
+
     }
 
     const populateImage = (listTriple: any[]) => {
@@ -137,17 +138,25 @@ const LightboxGallery = ({ data }: LightboxGalleryProps) => {
     }
 
     const handleSetSelectedCategory = (value: string) => {
-        filterAlbumImages(value);
+        setMasonaryCols([]);
+        setLightboxImages([]);
+        setTimeout(() => {
+            filterAlbumImages(value);
+        }, _delay);
     }
 
     return (
         <>
             <LightboxGalleryFilters albums={albums} clickHandler={handleSetSelectedCategory} />
-
-            <div className="grid md:grid-cols-3 gap-4">
-                {!masonaryCols && <div>Loading...</div>}
-                {masonaryCols}
-            </div>
+            {!masonaryCols || masonaryCols.length === 0 ? (
+                <div className="w-full mb-32 flex justify-center">
+                    <img src={SpinnerSVG} alt="Spinner" />
+                </div>
+            ) : (
+                <div className="grid md:grid-cols-3 gap-4">
+                    {masonaryCols}
+                </div>
+            )}
             <Lightbox
                 index={imageIndex}
                 open={open}
