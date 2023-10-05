@@ -53,7 +53,7 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
 
     useEffect(() => {
         const albumCategories: any[] = [];
-        data && data.map((item: any, i: number) => {
+        data && data.slice(0).reverse().map((item: any, i: number) => {
             albumCategories.push(item.fields.album)
         });
 
