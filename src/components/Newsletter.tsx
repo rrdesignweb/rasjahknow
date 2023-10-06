@@ -27,7 +27,7 @@ const Newsletter = () => {
             >
               <div className="relative w-full md:w-96">
                 <label
-                  htmlFor/*  */="email"
+                  htmlFor="email"
                   className="hidden mb-2 text-sm font-semibold text-gray-900 dark:text-gray-300"
                 >Email address</label>
                 <div
@@ -45,7 +45,7 @@ const Newsletter = () => {
                   ></path></svg>
                 </div>
                 <input
-                  className="block p-3 pl-10 w-full md:w-96 text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="block p-3 pl-10 w-full md:w-96 text-md text-gray-900  border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter your email"
                   type="email"
                   id="email"

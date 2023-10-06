@@ -46,7 +46,7 @@ const EventsList = () => {
                   <div className="md:w-0 flex md:hidden uppercase font-medium mb-2">
                     {format(new Date(event.datetime), "LLL d eee")}
                   </div>
-                  <div className="md:flex mb-2">{event.venue.name}</div>
+                  <div className="md:flex mb-3">{event.venue.name}</div>
                   <div className="hidden md:flex flex-col mb-2">
                     <a
                       className="hover:underline"

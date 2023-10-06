@@ -1,4 +1,5 @@
 ---
+import Button from "./Button";
 import { contentfulClient } from "../lib/contentful";
 
 interface MemberItem {
@@ -23,9 +24,17 @@ const entries = await contentfulClient.getEntries<MemberItem>({
 });
 ---
 
-<div class="flex md:justify-between:flex-row flex-col items-start py-8">
-  <h2 class="text-2xl font-semibold uppercase">Band Members</h2>
-  <p class="md:text-right:pt-0 pt-4">
+<div
+  class="flex w-full justify-between md:flex-row md:items-center mb-6 flex-col py-8"
+>
+  <div class="md:m-0 mb-6">
+    <h2 class="text-2xl font-semibold uppercase mb-4">Band Members</h2>
+    <Button href="/biography" className="text-black hover:text-white">
+      View Biography
+    </Button>
+  </div>
+
+  <p class="!mb-0 md:text-right md:pt-0 pt-4">
     For bookings contact: Jorge Abreu <br />
     Phone: <a class="text-red-500 hover:text-red-700" href="tel:+61 416 652 906"
       >+61 416 652 906</a
@@ -43,11 +52,14 @@ const entries = await contentfulClient.getEntries<MemberItem>({
         .sort((a, b) => a.fields.position - b.fields.position)
         .map((item: any, i: number) => (
           <div>
-            <img
-              class="h-auto w-96 grayscale object-cover"
-              src={item.fields.image.fields.file?.url}
-              alt={item.fields.name + " - " + item.fields.instrument}
-            />
+            <div class="h-auto md:h-72 hover:opacity-90 hover:cursor-pointer hover:border-l-8 transition-all hover:border-[#e65454]">
+              <img
+                class="h-auto md:h-72 w-96 grayscale object-cover"
+                src={item.fields.image.fields.file?.url}
+                alt={item.fields.name + " - " + item.fields.instrument}
+              />
+            </div>
+
             <div class="p-4">
               <h3 class="font-semibold text-lg">{item.fields.name}</h3>
               <p class="text-md">{item.fields.instrument}</p>
