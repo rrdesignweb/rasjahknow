@@ -114,7 +114,7 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
                     <img
                         className="max-w-full rounded-lg hover:cursor-pointer object-cover h-full"
                         src={item.src}
-                        alt={item.alt}
+                        alt={item.alt ? item.alt : item.title}
                         data-index={imageIndexCount}
                         data-album={item.title}
                         onClick={(e) => onOpenImage(e)}
