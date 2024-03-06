@@ -24,18 +24,16 @@ const entry = await contentfulClient.getEntry<ContactPage>(
 ---
 
 <Layout title="Contact">
-  <main>
-    <HeroBanner
-      title={entry?.fields?.title}
-      description={entry?.fields?.subTitle}
-      image={entry?.fields.heroBanner.fields.file?.url}
-    />
-    <section class="w-9/12 mx-auto my-10">
-      <div class="container">
-        <div class="text-center">
-          <h2>Thank you! we'll be in contact with you soon</h2>
-        </div>
+  <HeroBanner
+    title={entry?.fields?.title}
+    description={entry?.fields?.subTitle}
+    image={entry?.fields.heroBanner.fields.file?.url}
+  />
+  <section class="w-9/12 mx-auto my-10">
+    <div class="container">
+      <div class="text-center">
+        <h2>Thank you! we'll be in contact with you soon</h2>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 </Layout>

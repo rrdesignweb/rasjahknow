@@ -39,39 +39,33 @@ const featured = entries.items.find((item: any) => item.fields.featured);
 ---
 
 <Layout title="Videos">
-  <main>
-    <HeroBanner
-      title={entry?.fields?.title}
-      description={entry?.fields?.subTitle}
-      image={entry?.fields.heroBanner.fields.file?.url}
-    />
-    <section class="w-11/12 md:w-9/12 mx-auto my-10">
-      {
-        featured && (
-          <div class="w-12/12 md:w-12/12 py-4">
-            <Fragment set:html={featured?.fields.youtube} />
-          </div>
-        )
-      }
+  <HeroBanner
+    title={entry?.fields?.title}
+    description={entry?.fields?.subTitle}
+    image={entry?.fields.heroBanner.fields.file?.url}
+  />
+  <section class="w-11/12 md:w-9/12 mx-auto my-10">
+    {
+      featured && (
+        <div class="w-12/12 md:w-12/12 py-4">
+          <Fragment set:html={featured?.fields.youtube} />
+        </div>
+      )
+    }
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {
-          entries &&
-            entries.items
-              .map(
-                (item: any, i: number) =>
-                  !item.fields.featured ? (
-                    <div class="w-12/12">
-                      <Fragment set:html={item.fields.youtube} />
-                    </div>
-                  ) : (
-                    null
-                  )
-              )
-        }
-      </div>
-    </section>
-  </main>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {
+        entries &&
+          entries.items.map((item: any, i: number) =>
+            !item.fields.featured ? (
+              <div class="w-12/12">
+                <Fragment set:html={item.fields.youtube} />
+              </div>
+            ) : null
+          )
+      }
+    </div>
+  </section>
 </Layout>
 
 <script is:inline>

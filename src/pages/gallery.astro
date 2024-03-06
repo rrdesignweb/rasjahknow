@@ -5,7 +5,7 @@ import LightboxGallery from "../components/LightboxGallery";
 import { contentfulClient } from "../lib/contentful";
 import type { GalleryItem } from "../lib/types";
 
-interface GalleryPage{
+interface GalleryPage {
   contentTypeId: "1Q9PvrUhy5EYfZ8vXS6lOR";
   fields: {
     title: string;
@@ -33,14 +33,12 @@ const { items } = entries;
 ---
 
 <Layout title="Gallery">
-  <main>
-    <HeroBanner
-      title={entry?.fields?.title}
-      description={entry?.fields?.subTitle}
-      image={entry?.fields.heroBanner.fields.file?.url}
-    />
-    <section class="w-9/12 mx-auto my-10">
-      <LightboxGallery data={items} client:load />
-    </section>
-  </main>
+  <HeroBanner
+    title={entry?.fields?.title}
+    description={entry?.fields?.subTitle}
+    image={entry?.fields.heroBanner.fields.file?.url}
+  />
+  <section class="w-9/12 mx-auto my-10">
+    <LightboxGallery data={items} client:load />
+  </section>
 </Layout>

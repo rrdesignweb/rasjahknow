@@ -40,7 +40,6 @@ let bodyHTML = entry ? documentToHtmlString(entry.fields.content, options) : "";
 ---
 
 <Layout title="Biography">
-  <main>
     <HeroBanner
       title={entry?.fields?.title}
       description={entry?.fields?.subTitle}
@@ -57,7 +56,6 @@ let bodyHTML = entry ? documentToHtmlString(entry.fields.content, options) : "";
         Download Press Kit
       </Button>
     </div>
-  </main>
 </Layout>
 
 <style is:inline>

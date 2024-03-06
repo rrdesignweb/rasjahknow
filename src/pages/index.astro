@@ -8,13 +8,11 @@ import VideoFeatured from "../components/VideoFeatured.astro";
 ---
 
 <Layout title="Ras Jahknow">
-  <main>
-    <Carousel />
-    <section class="w-9/12 mx-auto my-10">
-      <Members />
-    </section>
-    <AlbumsHome />
-    <EventsList client:load/>
-    <VideoFeatured />
-  </main>
+  <Carousel />
+  <section class="w-9/12 mx-auto my-10">
+    <Members />
+  </section>
+  <AlbumsHome />
+  <EventsList client:load />
+  <VideoFeatured />
 </Layout>

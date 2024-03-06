@@ -41,9 +41,13 @@ const entry = await contentfulClient.getEntry<ContactPage>(
 let options = {
   renderNode: {
     [BLOCKS.HEADING_2]: (node: any, next: any) =>
-      `<h2 class="text-2xl font-semibold mb-4 uppercase">${next(node.content)}</h2>`,
+      `<h2 class="text-2xl font-semibold mb-4 uppercase">${next(
+        node.content
+      )}</h2>`,
     [INLINES.HYPERLINK]: (node: any, next: any) =>
-      `<p><a href="${node.data.uri}" class="text-red-500 hover:text-red-700">${next(node.content)}</a></p>`,
+      `<p><a href="${
+        node.data.uri
+      }" class="text-red-500 hover:text-red-700">${next(node.content)}</a></p>`,
   },
 };
 
@@ -51,94 +55,92 @@ let bodyHTML = entry ? documentToHtmlString(entry.fields.content, options) : "";
 ---
 
 <Layout title="Contact">
-  <main>
-    <HeroBanner
-      title={entry?.fields?.title}
-      description={entry?.fields?.subTitle}
-      image={entry?.fields.heroBanner.fields.file?.url}
-    />
-    <section
-      class="w-11/12 md:w-9/12 flex md:flex-row flex-col gap-10 mx-auto my-12"
-    >
-      <div class="w-12/12 md:w-6/12 mt-2">
-        <form
-          method="post"
-          name="contact"
-          action="/contact-success"
-          data-netlify="true"
-          netlify-honeypot="bot"
-        >
-          <input type="hidden" name="form-name" value="contact" />
-          <div class="">
-            <label class="sr-only">
-              Don't fill this out human
-              <input name="bot" />
-            </label>
-          </div>
-          <div class="mb-6">
-            <label>
-              <span class="required sr-only">Full Name</span>
-              <input
-                type="text"
-                name="name"
-                placeholder="Your name"
-                required
-                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m"
-              />
-            </label>
-          </div>
-          <div class="my-6">
-            <label>
-              <span class="required sr-only">Email</span>
-              <input
-                type="email"
-                name="email"
-                placeholder="your@email.com"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                required
-                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m"
-              />
-            </label>
-          </div>
-          <div class="my-6">
-            <label>
-              <span class="sr-only">Subject</span>
-              <input
-                type="text"
-                name="subject"
-                placeholder="Subject"
-                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m"
-              />
-            </label>
-          </div>
-          <div class="my-6">
-            <label>
-              <span class="required sr-only">Message</span>
-              <textarea
-                placeholder="Please enter your enquiry..."
-                name="message"
-                rows="12"
-                required
-                class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m"
-              ></textarea>
-            </label>
-          </div>
-          <div class="" data-netlify-recaptcha="true"></div>
-          <div class="w-12/12 md:w-4/12">
-            <button
-              type="submit"
-              class="w-full cursor-pointer appearance-none py-2 mt-6 mb-6 px-4 bg-red-700 border-2 uppercase text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
-            >
-              Send
-            </button>
-          </div>
-        </form>
-      </div>
-      <div class="w-12/12 md:w-6/12">
+  <HeroBanner
+    title={entry?.fields?.title}
+    description={entry?.fields?.subTitle}
+    image={entry?.fields.heroBanner.fields.file?.url}
+  />
+  <section
+    class="w-11/12 md:w-9/12 flex md:flex-row flex-col gap-10 mx-auto my-12"
+  >
+    <div class="w-12/12 md:w-6/12 mt-2">
+      <form
+        method="post"
+        name="contact"
+        action="/contact-success"
+        data-netlify="true"
+        netlify-honeypot="bot"
+      >
+        <input type="hidden" name="form-name" value="contact" />
         <div class="">
-          <Fragment set:html={bodyHTML} />
+          <label class="sr-only">
+            Don't fill this out human
+            <input name="bot" />
+          </label>
         </div>
+        <div class="mb-6">
+          <label>
+            <span class="required sr-only">Full Name</span>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your name"
+              required
+              class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m"
+            />
+          </label>
+        </div>
+        <div class="my-6">
+          <label>
+            <span class="required sr-only">Email</span>
+            <input
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+              required
+              class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m"
+            />
+          </label>
+        </div>
+        <div class="my-6">
+          <label>
+            <span class="sr-only">Subject</span>
+            <input
+              type="text"
+              name="subject"
+              placeholder="Subject"
+              class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m"
+            />
+          </label>
+        </div>
+        <div class="my-6">
+          <label>
+            <span class="required sr-only">Message</span>
+            <textarea
+              placeholder="Please enter your enquiry..."
+              name="message"
+              rows="12"
+              required
+              class="w-full border-0 bg-gray-200 py-3 px-5 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m"
+            ></textarea>
+          </label>
+        </div>
+        <div class="" data-netlify-recaptcha="true"></div>
+        <div class="w-12/12 md:w-4/12">
+          <button
+            type="submit"
+            class="w-full cursor-pointer appearance-none py-2 mt-6 mb-6 px-4 bg-red-700 border-2 uppercase text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+          >
+            Send
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="w-12/12 md:w-6/12">
+      <div class="">
+        <Fragment set:html={bodyHTML} />
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 </Layout>

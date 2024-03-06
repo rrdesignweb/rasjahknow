@@ -57,6 +57,7 @@ const entries = await contentfulClient.getEntries<MemberItem>({
                 class="h-auto md:h-72 w-96 grayscale object-cover"
                 src={item.fields.image.fields.file?.url}
                 alt={item.fields.name + " - " + item.fields.instrument}
+                loading="lazy"
               />
             </div>
 

@@ -118,6 +118,7 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
                         data-index={imageIndexCount}
                         data-album={item.title}
                         onClick={(e) => onOpenImage(e)}
+                        loading="lazy"
                     />
                 </div>
             )
@@ -150,7 +151,7 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
             <LightboxGalleryFilters albums={albums} clickHandler={handleSetSelectedCategory} />
             {!masonaryCols || masonaryCols.length === 0 ? (
                 <div className="w-full mb-32 flex justify-center">
-                    <img src={SpinnerSVG} alt="Spinner" />
+                    <img src={SpinnerSVG} alt="Spinner" loading="lazy" />
                 </div>
             ) : (
                 <div className="grid md:grid-cols-3 gap-4">

@@ -36,25 +36,23 @@ const entries = await contentfulClient.getEntries<MusicItem>({
 ---
 
 <Layout title="Music">
-  <main>
-    <HeroBanner
-      title={entry?.fields?.title}
-      description={entry?.fields?.subTitle}
-      image={entry?.fields.heroBanner.fields.file?.url}
-    />
-    <section
-      class="w-11/12 md:w-9/12 grid md:grid-cols-2 grid-col-1 gap-2 container mx-auto mt-10 mb-5"
-    >
-      {
-        entries &&
-          entries.items
-            .sort((a, b) => a.fields.position - b.fields.position)
-            .map((item: any, i: number) => {
-              return <Fragment key={i} set:html={item?.fields.embed} />;
-            })
-      }
-    </section>
-  </main>
+  <HeroBanner
+    title={entry?.fields?.title}
+    description={entry?.fields?.subTitle}
+    image={entry?.fields.heroBanner.fields.file?.url}
+  />
+  <section
+    class="w-11/12 md:w-9/12 grid md:grid-cols-2 grid-col-1 gap-2 container mx-auto mt-10 mb-5"
+  >
+    {
+      entries &&
+        entries.items
+          .sort((a, b) => a.fields.position - b.fields.position)
+          .map((item: any, i: number) => {
+            return <Fragment key={i} set:html={item?.fields.embed} />;
+          })
+    }
+  </section>
 </Layout>
 
 <style is:inline>

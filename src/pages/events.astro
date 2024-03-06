@@ -26,12 +26,10 @@ const entry = await contentfulClient.getEntry<EventsPage>(
 ---
 
 <Layout title="Events Ras Jahknow">
-  <main>
-    <HeroBanner
-      title={entry?.fields?.title}
-      description={entry?.fields?.subTitle}
-      image={entry?.fields.heroBanner.fields.file?.url}
-    />
-    <EventsList client:load/>
-  </main>
+  <HeroBanner
+    title={entry?.fields?.title}
+    description={entry?.fields?.subTitle}
+    image={entry?.fields.heroBanner.fields.file?.url}
+  />
+  <EventsList client:load />
 </Layout>
