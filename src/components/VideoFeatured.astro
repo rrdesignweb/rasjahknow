@@ -32,7 +32,7 @@ let ythref = featured?.fields?.youtube?.match(/href="([^"]*)/)[1];
   <div class="md:w-9/12 h-full">
     <a href={ythref} class="relative" target="_blank">
       <img
-        src={featured?.fields.coverImage.fields.file?.url}
+        src={featured?.fields.coverImage.fields.file?.url + '?fm=avif'}
         alt={featured?.fields.title}
         class="object-cover w-full"
       />
