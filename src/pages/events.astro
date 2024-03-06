@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
-import EventsList from "../components/EventsList.tsx";
+import EventsList from "../components/EventsList";
 import { contentfulClient } from "../lib/contentful";
 
 interface EventsPage {
@@ -29,7 +29,7 @@ const entry = await contentfulClient.getEntry<EventsPage>(
   <HeroBanner
     title={entry?.fields?.title}
     description={entry?.fields?.subTitle}
-    image={entry?.fields.heroBanner.fields.file?.url}
+    image={entry?.fields.heroBanner.fields.file?.url + '?fm=avif'}
   />
   <EventsList client:load />
 </Layout>

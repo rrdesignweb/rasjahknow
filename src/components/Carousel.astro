@@ -35,7 +35,7 @@ const entries = await contentfulClient.getEntries<SlideItem>({
             data-carousel-item={item.fields.firstSlide ? "active" : ""}
           >
             <img
-              src={item.fields.image.fields.file?.url}
+              src={item.fields.image.fields.file?.url + '?fm=avif'}
               class="absolute block w-full object-cover h-screen -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
               alt={item.fields.imageAlt}
               loading="lazy"

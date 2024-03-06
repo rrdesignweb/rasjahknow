@@ -46,7 +46,7 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
     let wrappedCols: any = [];
 
     let images = data && data.map((item: any) => ({
-        src: item.fields.image.fields.file?.url,
+        src: item.fields.image.fields.file?.url + '?fm=avif',
         alt: item.fields.image.fields.file?.title,
         title: item.fields.album,
     }));

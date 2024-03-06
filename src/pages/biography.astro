@@ -43,7 +43,7 @@ let bodyHTML = entry ? documentToHtmlString(entry.fields.content, options) : "";
     <HeroBanner
       title={entry?.fields?.title}
       description={entry?.fields?.subTitle}
-      image={entry?.fields.heroBanner.fields.file?.url}
+      image={entry?.fields.heroBanner.fields.file?.url + '?fm=avif'}
     />
     <section class="w-11/12 md:w-9/12 container mx-auto md:my-20 my-6">
       <div class="w-12/12">

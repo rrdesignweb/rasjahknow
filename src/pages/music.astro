@@ -39,7 +39,7 @@ const entries = await contentfulClient.getEntries<MusicItem>({
   <HeroBanner
     title={entry?.fields?.title}
     description={entry?.fields?.subTitle}
-    image={entry?.fields.heroBanner.fields.file?.url}
+    image={entry?.fields.heroBanner.fields.file?.url + '?fm=avif'}
   />
   <section
     class="w-11/12 md:w-9/12 grid md:grid-cols-2 grid-col-1 gap-2 container mx-auto mt-10 mb-5"
