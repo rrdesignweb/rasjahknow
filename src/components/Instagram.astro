@@ -1,7 +1,7 @@
 ---
 const fetchData = async () => {
   const response = await fetch(
-    "https://v1.nocodeapi.com/roshambo/instagram/IwFRjheBjJPUkvhF?limit=10"
+    "https://v1.nocodeapi.com/roshambo/instagram/IwFRjheBjJPUkvhF?limit=6"
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");
@@ -29,6 +29,26 @@ try {
   </h2>
   <div class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-3 gap-1">
     {
+      result?.data?.length === 0 &&
+        [...Array(6)].map((_, i: number) => (
+          <div>
+            <a href="#" title="Blank Href">
+              <div
+                class="relative w-full md:h-60 sm:h-48 h-80"
+                style={{
+                  animation: "shadingAnimation 2s infinite",
+                  background: "black",
+                  opacity: 0.5,
+                }}
+              >
+                <div class="bg-gray-500 absolute w-full h-full left-0 bottom-0 top-0 right-0" />
+              </div>
+            </a>
+          </div>
+        ))
+    }
+
+    {
       result && result.data
         ? result.data.map((item: any, i: number) =>
             item.media_type === "IMAGE" ? (
@@ -43,7 +63,7 @@ try {
                   <img
                     class="object-cover w-full h-full"
                     src={item.media_url}
-                    alt="..."
+                    alt={item.caption}
                   />
                 </div>
               </a>
@@ -71,28 +91,29 @@ try {
                   <img
                     class="object-cover w-full h-full"
                     src={item.thumbnail_url}
-                    alt="..."
+                    alt={item.caption}
+                  />
+                </div>
+              </a>
+            ) : item.media_type === "CAROUSEL_ALBUM" ? (
+              <a
+                href={item.permalink}
+                data-media-type="carousel_item"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div class="relative w-full md:h-60 sm:h-48 h-80">
+                  <div class="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0 hover:bg-gray-900 hover:bg-opacity-50" />
+                  <img
+                    class="object-cover w-full h-full"
+                    src={item.media_url}
+                    alt={item.caption}
                   />
                 </div>
               </a>
             ) : null
           )
-        : [...Array(6)].map((_, i: number) => (
-            <div>
-              <a href="#" title="Blank Href">
-                <div
-                  class="relative w-full md:h-60 sm:h-48 h-80"
-                  style={{
-                    animation: "shadingAnimation 2s infinite",
-                    background: "black",
-                    opacity: 0.5,
-                  }}
-                >
-                  <div class="bg-gray-500 absolute w-full h-full left-0 bottom-0 top-0 right-0" />
-                </div>
-              </a>
-            </div>
-          ))
+        : null
     }
   </div>
 </section>
