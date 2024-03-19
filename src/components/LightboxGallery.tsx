@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Lightbox from "yet-another-react-lightbox";
 import Captions from "yet-another-react-lightbox/plugins/captions";
-import SpinnerSVG from "/spinner.svg"
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/captions.css";
 import "yet-another-react-lightbox/styles.css";
@@ -151,7 +150,7 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
             <LightboxGalleryFilters albums={albums} clickHandler={handleSetSelectedCategory} />
             {!masonaryCols || masonaryCols.length === 0 ? (
                 <div className="w-full mb-32 flex justify-center">
-                    <img src={SpinnerSVG} alt="Spinner" loading="lazy" />
+                    <img src="/spinner.svg" alt="Spinner" loading="lazy" />
                 </div>
             ) : (
                 <div className="grid md:grid-cols-3 gap-4">

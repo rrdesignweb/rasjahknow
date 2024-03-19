@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { format } from "date-fns";
-import SpinnerSVG from "./Spinner";
 
 const EventsList = () => {
   const [data, setData] = useState<any>();
@@ -37,7 +36,7 @@ const EventsList = () => {
           <div className="hidden md:flex">Location</div>
           <div className="w-full md:text-right">Tickets</div>
         </div>
-        {loading ? <div className="bg-gray-600 bg-opacity-70 p-8 mb-2 text-center text-white w-full flex justify-center"><SpinnerSVG /></div> : ""}
+        {loading ? <div className="bg-gray-600 bg-opacity-70 p-8 mb-2 text-center text-white w-full flex justify-center"><img src="/spinner.svg" alt="Loading spinner" /></div> : ""}
         {data && data.length === 0 ? <div className="bg-gray-600 bg-opacity-70 p-8 mb-2 text-left text-white w-full flex justify-start">No upcoming events found...</div> : ""}
         {
           data && data
