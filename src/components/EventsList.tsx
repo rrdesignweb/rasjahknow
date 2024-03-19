@@ -4,14 +4,17 @@ import SpinnerSVG from "/spinner-white.svg"
 
 const EventsList = () => {
   const [data, setData] = useState<any>();
+  const [loading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
+      setIsLoading(true);
       const artist = "Ras Jahknow Band";
       const apiUrl = `https://rest.bandsintown.com/artists/${artist}/events?app_id=squarespace-todd-wright-gxya&date=upcoming`;
       const response = await fetch(apiUrl);
       const data = await response.json();
       setData(data)
+      setIsLoading(false);
     }
     // call the function
     fetchEvents().catch(console.error);
@@ -34,7 +37,8 @@ const EventsList = () => {
           <div className="hidden md:flex">Location</div>
           <div className="w-full md:text-right">Tickets</div>
         </div>
-        {!data && <div className="bg-gray-600 bg-opacity-70 p-8 mb-2 text-center text-white w-full flex justify-center"><img src={SpinnerSVG} alt="Spinner"/></div>}
+        {loading ? <div className="bg-gray-600 bg-opacity-70 p-8 mb-2 text-center text-white w-full flex justify-center"><img src={SpinnerSVG} alt="Spinner" /></div> : ""}
+        {data && data.length === 0 ? <div className="bg-gray-600 bg-opacity-70 p-8 mb-2 text-center text-white w-full flex justify-center">No upcoming events found...</div> : ""}
         {
           data && data
             .map((event: any, i: number) => {
