@@ -51,8 +51,8 @@ const Instagram = () => {
           ))
         }
         {
-          result && result.data
-            ? result.data.map((item: any, i: number) =>
+          result?.data ?
+            result.data.map((item: any, i: number) =>
               item.media_type === "IMAGE" ? (
                 <a
                   key={i}
@@ -120,8 +120,9 @@ const Instagram = () => {
                   </div>
                 </a>
               ) : null
+            ) : (
+              <div className="text-white">Loading...</div>
             )
-            : null
         }
       </div>
     </section>

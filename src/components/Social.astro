@@ -4,10 +4,6 @@ interface Props {
   username: string;
 }
 
-import instagram from "/instagram.svg";
-import facebook from "/facebook.svg";
-import youtube from "/youtube.svg";
-
 const { platform, username } = Astro.props;
 ---
 
@@ -18,10 +14,11 @@ const { platform, username } = Astro.props;
   <img
     class="w-8 text-white"
     src={platform === "facebook"
-      ? facebook
+      ? "/facebook.svg"
       : platform === "instagram"
-      ? instagram
-      : youtube}
+      ? "/instagram.svg"
+      : "/youtube.svg"}
     alt={`${platform} icon`}
+    loading="lazy"
   />
 </a>

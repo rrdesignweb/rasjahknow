@@ -2,6 +2,8 @@
 import Button from "./Button";
 import { contentfulClient } from "../lib/contentful";
 import type { Entry } from "contentful";
+import { Image } from 'astro:assets';
+
 interface VideoItem {
   contentTypeId: "videos";
   fields: {
@@ -24,17 +26,23 @@ const entries = await contentfulClient.getEntries<VideoItem>({
 });
 
 const featured = entries.items.find((item: any) => item.fields.featured);
-let ythref = featured?.fields?.youtube?.match(/href="([^"]*)/)[1];
+let ythref;
+if (typeof featured?.fields?.youtube === 'string') {
+  ythref = featured.fields.youtube.match(/href="([^"]*)/)[1];
+}
 
 ---
 
 <section class="flex bg-red-500">
   <div class="md:w-9/12 h-full">
     <a href={ythref} class="relative" target="_blank">
-      <img
-        src={featured?.fields.coverImage.fields.file?.url + '?fm=avif'}
-        alt={featured?.fields.title}
+      <Image
+        src={featured?.fields?.coverImage?.fields?.file?.url}
+        alt={featured?.fields?.title ?? null}
         class="object-cover w-full"
+        format='avif'
+        width="1000" 
+        height="850"  
       />
       <div class="absolute right-2/4 inset-y-0 grid items-center">
         <div
