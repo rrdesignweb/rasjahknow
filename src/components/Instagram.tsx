@@ -5,6 +5,13 @@ const Instagram = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      // Try to get cached data from sessionStorage
+      const cachedData = sessionStorage.getItem('instagramData');
+      if (cachedData) {
+        setResult(JSON.parse(cachedData));
+        return;
+      }
+
       try {
         const response = await fetch(
           "https://v1.nocodeapi.com/roshambo/instagram/IwFRjheBjJPUkvhF?limit=6"
@@ -14,6 +21,8 @@ const Instagram = () => {
         }
         const data = await response.json();
         setResult(data);
+        // Cache the data in sessionStorage
+        sessionStorage.setItem('instagramData', JSON.stringify(data));
       } catch (error) {
         console.error("Failed to fetch Instagram data:", error);
       }
