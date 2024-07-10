@@ -61,7 +61,7 @@ const EventsList = () => {
                   {format(new Date(event.datetime), "LLL d eee")}
                 </div>
                 <div className="md:flex mb-3 md:mb-0">{event.venue.name}</div>
-                <div className="md:flex items-center flex-col mb-2 md:mb-0">
+                <div className="md:flex flex-col mb-2 md:mb-0">
                   <a
                     className="hover:underline"
                     target="_blank"
@@ -70,7 +70,7 @@ const EventsList = () => {
                     )}`}
                   >
                     <div className="address flex mb-2 md:mb-0">
-                      <div className="flex  mr-2">
+                      <div className="flex mr-2">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           aria-label="Google Maps"
