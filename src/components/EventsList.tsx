@@ -57,19 +57,19 @@ const EventsList = () => {
                 <div className="hidden md:flex uppercase font-medium mb-2 md:mb-0">
                   {format(new Date(event.datetime), "LLL d eee")}
                 </div>
-                <div className="md:w-0 flex md:hidden uppercase font-medium mb-2 md:mb-0">
+                <div className="md:w-0 flex md:hidden uppercase font-medium mb-3 md:mb-0">
                   {format(new Date(event.datetime), "LLL d eee")}
                 </div>
                 <div className="md:flex mb-3 md:mb-0">{event.venue.name}</div>
-                <div className="md:flex flex-col mb-2 md:mb-0">
+                <div className="md:flex flex-col mb-3 md:mb-0">
                   <a
-                    className="hover:underline"
+                    className="underline underline-offset-4"
                     target="_blank"
                     href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                       `${event.venue.street_address} ${event.venue.city} ${event.venue.country} ${event.venue.postal_code}`
                     )}`}
                   >
-                    <div className="address flex mb-2 md:mb-0">
+                    <div className="address flex mb-3 md:mb-0">
                       <div className="flex mr-2">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
