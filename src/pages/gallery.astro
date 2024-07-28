@@ -4,6 +4,7 @@ import HeroBanner from "../components/HeroBanner.astro";
 import LightboxGallery from "../components/LightboxGallery";
 import { contentfulClient } from "../lib/contentful";
 import type { GalleryItem } from "../lib/types";
+import PressKit from "../components/PressKit.astro";
 
 interface GalleryPage {
   contentTypeId: "1Q9PvrUhy5EYfZ8vXS6lOR";
@@ -36,9 +37,10 @@ const { items } = entries;
   <HeroBanner
     title={entry?.fields?.title}
     description={entry?.fields?.subTitle}
-    image={entry?.fields.heroBanner.fields.file?.url + '?fm=avif'}
+    image={entry?.fields.heroBanner.fields.file?.url + "?fm=avif"}
   />
   <section class="w-9/12 mx-auto my-10">
     <LightboxGallery data={items} client:load />
   </section>
+  <PressKit />
 </Layout>

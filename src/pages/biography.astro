@@ -1,9 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
-import Button from "../components/Button";
+
 import { contentfulClient } from "../lib/contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import PressKit from "../components/PressKit.astro";
 
 interface BioograhyPage {
   contentTypeId: "16pQYId6ifiX4DuiakzfST";
@@ -50,12 +51,8 @@ let bodyHTML = entry ? documentToHtmlString(entry.fields.content, options) : "";
         <Fragment set:html={bodyHTML} />
       </div>
     </section>
-
-    <div class="bg-black height-96 mt-10 text-center mx-auto py-20">
-      <Button target="_blank" href="https://onepagelink.com/rasjahknow">
-        Download Press Kit
-      </Button>
-    </div>
+    <PressKit />
+   
 </Layout>
 
 <style is:inline>

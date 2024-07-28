@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
 import { contentfulClient } from "../lib/contentful";
+import PressKit from "../components/PressKit.astro";
 interface MusicPage {
   contentTypeId: "FyMotfR5FPnEC66Zt2wRh";
   fields: {
@@ -39,7 +40,7 @@ const entries = await contentfulClient.getEntries<MusicItem>({
   <HeroBanner
     title={entry?.fields?.title}
     description={entry?.fields?.subTitle}
-    image={entry?.fields.heroBanner.fields.file?.url + '?fm=avif'}
+    image={entry?.fields.heroBanner.fields.file?.url + "?fm=avif"}
   />
   <section
     class="w-11/12 md:w-9/12 grid md:grid-cols-2 grid-col-1 gap-2 container mx-auto mt-10 mb-5"
@@ -53,6 +54,7 @@ const entries = await contentfulClient.getEntries<MusicItem>({
           })
     }
   </section>
+  <PressKit/>
 </Layout>
 
 <style is:inline>

@@ -17,6 +17,7 @@ import {
   Inline,
   helpers,
 } from "@contentful/rich-text-types";
+import PressKit from "../components/PressKit.astro";
 
 interface ContactPage {
   contentTypeId: "eRL0cxhoQMb3vZTgIHiUO";
@@ -58,7 +59,7 @@ let bodyHTML = entry ? documentToHtmlString(entry.fields.content, options) : "";
   <HeroBanner
     title={entry?.fields?.title}
     description={entry?.fields?.subTitle}
-    image={entry?.fields.heroBanner.fields.file?.url + '?fm=avif'}
+    image={entry?.fields.heroBanner.fields.file?.url + "?fm=avif"}
   />
   <section
     class="w-11/12 md:w-9/12 flex md:flex-row flex-col gap-10 mx-auto my-12"
@@ -143,4 +144,5 @@ let bodyHTML = entry ? documentToHtmlString(entry.fields.content, options) : "";
       </div>
     </div>
   </section>
+  <PressKit />
 </Layout>

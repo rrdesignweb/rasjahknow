@@ -14,22 +14,44 @@ interface ILightboxGalleryProps {
     data: any;
 }
 
-const LightboxGalleryFilters: React.FC<IFilters> = ({ albums, clickHandler }: IFilters) => {
+const LightboxGalleryFilters: React.FC<IFilters> = ({
+  albums,
+  clickHandler,
+}: IFilters) => {
+  const [selectedAlbum, setSelectedAlbum] = useState<number>(0); // Add state for selected album
 
-    const handleAlbumOnClick = (e: any) => {
-        clickHandler(e.target.value)
-    };
+  const handleAlbumOnClick = (e: any, index: number) => {
+    setSelectedAlbum(index); // Update state on click
+    clickHandler(e.target.value);
+  };
 
-    return (
-        <div className="mb-10 flex justify-end items-center">
-            <label htmlFor="AlbumList" className="mr-6 md:flex hidden">Photo Albums: </label>
-            <select id="AlbumList" className="md:w-auto w-full border-0 bg-gray-200 py-3 text-base text-[#111111] outline-none focus:border-[#6A64F1] focus:shadow-m" onChange={(e: any) => handleAlbumOnClick(e)}>
-                {albums && albums.map((item: string, i: number) => (
-                    <option key={i} value={item}>{item}</option>
-                ))}
-            </select>
+  return (
+    <div className="wrapper-class">
+      <div className="mb-10 flex justify-center items-center">
+        <label htmlFor="AlbumList" className="mr-6 hidden">
+          Photo Albums:
+        </label>
+        <div id="AlbumList" className="flex flex-wrap gap-1 ">
+          {albums &&
+            albums.map((item: string, i: number) => (
+              <label key={i} className="flex cursor-pointer">
+                <input
+                  type="radio"
+                  name="album"
+                  value={item}
+                  className="hidden peer"
+                  onChange={(e: any) => handleAlbumOnClick(e, i)} // Pass index to handler
+                  checked={selectedAlbum === i} // Check based on state
+                />
+                <span className="text-base text-[#111111] py-3 px-4 border-0 bg-gray-200 rounded-lg peer-checked:bg-black peer-checked:text-white ">
+                  {item}
+                </span>
+              </label>
+            ))}
         </div>
-    )
+      </div>
+    </div>
+  );
 };
 
 const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
@@ -45,15 +67,15 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
     let wrappedCols: any = [];
 
     let images = data && data.map((item: any) => ({
-        src: item.fields.image.fields.file?.url + '?fm=avif',
-        alt: item.fields.image.fields.file?.title,
+        src: item.fields?.image?.fields?.file?.url + '?fm=avif',
+        alt: item.fields?.image?.fields?.file?.title,
         title: item.fields.album,
     }));
 
     useEffect(() => {
         const albumCategories: any[] = [];
         data && data.slice(0).reverse().map((item: any, i: number) => {
-            albumCategories.push(item.fields.album)
+            albumCategories.push(item.fields?.album)
         });
 
         const uniq = albumCategories.reduce(function (a, b) {

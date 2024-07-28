@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
 import { contentfulClient } from "../lib/contentful";
+import PressKit from "../components/PressKit.astro";
 interface VideoPage {
   contentTypeId: "33JXxifb79nwQyQSBTdJaY";
   fields: {
@@ -66,6 +67,7 @@ const featured = entries.items.find((item: any) => item.fields.featured);
       }
     </div>
   </section>
+  <PressKit />
 </Layout>
 
 <script is:inline>
