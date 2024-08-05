@@ -107,7 +107,7 @@ const EventsList = () => {
                 </div>
                 <div className="w-full md:text-right mt-2">
                   <a
-                    href={event.offers[0].url}
+                    href={event?.offers[0]?.url ? event?.offers[0]?.url : event.url}
                     rel="noreferrer"
                     target="_blank"
                     title={event.title}
