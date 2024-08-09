@@ -60,10 +60,20 @@ const EventsList = () => {
                 <div className="md:w-0 flex md:hidden uppercase font-medium mb-3 md:mb-0">
                   {format(new Date(event.datetime), "LLL d eee")}
                 </div>
-                <div className="md:flex mb-3 md:mb-0">{event.venue.name}</div>
+                <div className="md:flex mb-3 md:mb-0">
+                  <a
+                    className="hover:underline hover:underline-offset-4"
+                    target="_blank"
+                    href={
+                      event?.offers[0]?.url ? event?.offers[0]?.url : event.url
+                    }
+                  >
+                    {event.venue.name}
+                  </a>
+                </div>
                 <div className="md:flex flex-col mb-3 md:mb-0">
                   <a
-                    className="underline underline-offset-4"
+                    className="underline underline-offset-4 md:no-underline md:hover:underline md:hover:underline-offset-4"
                     target="_blank"
                     href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                       `${event.venue.street_address} ${event.venue.city} ${event.venue.country} ${event.venue.postal_code}`
@@ -105,15 +115,19 @@ const EventsList = () => {
                       </div> */}
                   </a>
                 </div>
-                <div className="w-full md:text-right mt-2">
+                <div className="w-full md:flex md:justify-end md:text-center mt-2 md:mt-0">
                   <a
-                    href={event?.offers[0]?.url ? event?.offers[0]?.url : event.url}
+                    href={
+                      event?.offers[0]?.url ? event?.offers[0]?.url : event.url
+                    }
                     rel="noreferrer"
                     target="_blank"
                     title={event.title}
-                    className="w-full cursor-pointer appearance-none py-2 my-4 px-4 bg-transparent border-2 uppercase text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                    className="w-48 cursor-pointer appearance-none py-2 my-2 px-4 bg-transparent border-2 uppercase text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
                   >
-                    Buy Tickets
+                    {event?.offers[0]?.type === "Tickets" ? "Buy Tickets" : ""}
+                    {event?.offers[0]?.type === "VIP" ? "VIP Tickets" : ""}
+                    {event?.offers[0]?.type === "Free" ? "Free Event" : ""}
                   </a>
                 </div>
               </div>
