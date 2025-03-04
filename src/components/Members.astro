@@ -2,7 +2,8 @@
 import Button from "./Button";
 import { contentfulClient } from "../lib/contentful";
 
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
+import ContactDetails from "./ContactDetails";
 
 interface MemberItem {
   contentTypeId: "bandMembers";
@@ -36,17 +37,9 @@ const entries = await contentfulClient.getEntries<MemberItem>({
     </Button>
   </div>
 
-  <p class="!mb-0 md:text-right md:pt-0 pt-4">
-    For bookings contact: Jorge Abreu <br />
-    Phone: <a class="text-red-700 hover:text-red-900" href="tel:+61 416 652 906"
-      >+61 416 652 906</a
-    ><br />
-    Email: <a
-      class="text-red-700 hover:text-red-900"
-      href="mailto:rasjahknowband@gmail.com">rasjahknowband@gmail.com</a
-    >
-  </p>
+  <ContactDetails client:load />
 </div>
+
 <div class="grid grid-cols-1 md:grid-cols-4 gap-x-4 gap-y-4">
   {
     entries &&
@@ -61,8 +54,8 @@ const entries = await contentfulClient.getEntries<MemberItem>({
                 alt={item.fields.name + " - " + item.fields.instrument}
                 loading="lazy"
                 format="avif"
-                width="270" 
-                height="270" 
+                width="270"
+                height="270"
               />
             </div>
 
