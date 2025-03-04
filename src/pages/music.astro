@@ -19,7 +19,7 @@ interface MusicPage {
   };
 }
 
-const entry = await contentfulClient.getEntry<MusicPage>(
+const entry: any = await contentfulClient.getEntry<MusicPage>(
   "FyMotfR5FPnEC66Zt2wRh"
 );
 
@@ -31,7 +31,7 @@ interface MusicItem {
   position: number;
 }
 
-const entries = await contentfulClient.getEntries<MusicItem>({
+const entries: any = await contentfulClient.getEntries<MusicItem>({
   content_type: "albums",
 });
 ---
@@ -48,7 +48,7 @@ const entries = await contentfulClient.getEntries<MusicItem>({
     {
       entries &&
         entries.items
-          .sort((a, b) => a.fields.position - b.fields.position)
+          .sort((a: any, b: any) => a.fields.position - b.fields.position)
           .map((item: any, i: number) => {
             return <Fragment key={i} set:html={item?.fields.embed} />;
           })

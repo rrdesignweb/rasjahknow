@@ -2,40 +2,27 @@
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
 import { contentfulClient } from "../lib/contentful";
-import {
-  RenderNode,
-  documentToHtmlString,
-} from "@contentful/rich-text-html-renderer";
-import {
-  Document,
-  Mark,
-  Text,
-  BLOCKS,
-  MARKS,
-  INLINES,
-  Block,
-  Inline,
-  helpers,
-} from "@contentful/rich-text-types";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import PressKit from "../components/PressKit.astro";
-
+interface HeroBanner {
+  fields: {
+    file: {
+      url: string | undefined;
+    };
+  };
+}
 interface ContactPage {
   contentTypeId: "eRL0cxhoQMb3vZTgIHiUO";
   fields: {
     title: string;
     subTitle: string;
-    heroBanner: {
-      fields: {
-        file: {
-          url: string | undefined;
-        };
-      };
-    };
+    heroBanner: HeroBanner;
     content: string;
   };
 }
 
-const entry = await contentfulClient.getEntry<ContactPage>(
+const entry: any = await contentfulClient.getEntry<ContactPage>(
   "eRL0cxhoQMb3vZTgIHiUO"
 );
 
