@@ -1,9 +1,28 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
-
+import useIsHydrated from "../hooks/useIsHydrated";
 const EventsList = () => {
   const [data, setData] = useState<any>();
   const [loading, setIsLoading] = useState<boolean>(false);
+  const isHydrated = useIsHydrated();
+
+  const loadingComponent = () => {
+    return (
+      <>
+        {[...Array(3)].map((_, i) => (
+          <div
+            key={i}
+            className="bg-opacity-70 p-8 mb-2 grid grid-cols-[1fr_0.5fr_0.5f] md:grid-cols-[0.25fr_0.5fr_0.5fr_0.25fr] items-center bg-gray-500 animate-[shimmer_1s_infinite] bg-gradient-to-r from-gray-500 via-gray-400 to-gray-500 bg-[length:400%_100%]"
+          >
+            <div className="w-auto p-8 h-6 bg-transparent"></div>
+            <div className="w-auto p-8 h-6 bg-transparent"></div>
+            <div className="w-auto p-8 h-6 bg-transparent"></div>
+            <div className="w-auto p-8 h-6 bg-transparent"></div>
+          </div>
+        ))}
+      </>
+    );
+  };
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -19,6 +38,26 @@ const EventsList = () => {
     fetchEvents().catch(console.error);
   }, []);
 
+  if (!isHydrated)
+    return (
+      <section className="bg-black bg-opacity-80 mx-auto pb-8 pt-4">
+        <div className="w-11/12 md:w-9/12 mx-auto my-5">
+          <div className="flex justify-between items-center">
+            <h3 className="text-white text-2xl font-semibold py-10 uppercase">
+              Loading Upcoming Shows..
+            </h3>
+          </div>
+          <div className="bg-gray-500 bg-opacity-70 py-4 p-8 mb-2  hidden md:grid  md:grid-cols-[0.25fr_0.5fr_0.5fr_0.25fr] text-white uppercase font-semibold">
+            <div className="">Date</div>
+            <div className="md:flex">Event</div>
+            <div className="hidden md:flex">Location</div>
+            <div className="w-full md:text-right">Tickets</div>
+          </div>
+          {loadingComponent()}
+        </div>
+      </section>
+    );
+
   return (
     <section className="bg-black bg-opacity-80 mx-auto pb-8 pt-4">
       <div className="w-11/12 md:w-9/12 mx-auto my-5">
@@ -33,13 +72,7 @@ const EventsList = () => {
           <div className="hidden md:flex">Location</div>
           <div className="w-full md:text-right">Tickets</div>
         </div>
-        {loading ? (
-          <div className="bg-gray-600 bg-opacity-70 p-8 mb-2 text-center text-white w-full flex justify-center">
-            <img src="/spinner.svg" alt="Loading spinner" />
-          </div>
-        ) : (
-          ""
-        )}
+        {loading ? loadingComponent() : ""}
         {data && data.length === 0 ? (
           <div className="bg-gray-600 bg-opacity-70 p-8 mb-2 text-left text-white w-full flex justify-start">
             No upcoming events found...
