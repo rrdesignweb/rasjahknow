@@ -10,6 +10,8 @@ const { platform, username } = Astro.props;
 <a
   class="appearance-none flex justify-center items-center py-2 my-4 px-2 text-white"
   href={`https://www.${platform}.com/${username}`}
+  rel="noreferrer"
+  target="_blank"
 >
   <img
     class="w-8 text-white"
@@ -17,6 +19,8 @@ const { platform, username } = Astro.props;
       ? "/facebook.svg"
       : platform === "instagram"
       ? "/instagram.svg"
+      : platform === "tiktok"
+      ? "/tiktok.svg"
       : "/youtube.svg"}
     alt={`${platform} icon`}
     loading="lazy"
