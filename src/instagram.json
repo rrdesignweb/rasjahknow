@@ -1,0 +1,76 @@
+{
+  "data": [
+    {
+      "inputUrl": "https://www.instagram.com/p/example1/",
+      "displayUrl": "/instagram/2024-03-20-1.jpg",
+      "caption": "Example post 1",
+      "type": "image",
+      "timestamp": "2024-03-20-1",
+      "likesCount": 100,
+      "commentsCount": 10,
+      "hashtags": ["example", "test"],
+      "mentions": [],
+      "locationName": null
+    },
+    {
+      "inputUrl": "https://www.instagram.com/p/example2/",
+      "displayUrl": "/instagram/2024-03-20-2.jpg",
+      "caption": "Example post 2",
+      "type": "image",
+      "timestamp": "2024-03-20-2",
+      "likesCount": 150,
+      "commentsCount": 15,
+      "hashtags": ["example", "test"],
+      "mentions": [],
+      "locationName": null
+    },
+    {
+      "inputUrl": "https://www.instagram.com/p/example3/",
+      "displayUrl": "/instagram/2024-03-20-3.jpg",
+      "caption": "Example post 3",
+      "type": "image",
+      "timestamp": "2024-03-20-3",
+      "likesCount": 200,
+      "commentsCount": 20,
+      "hashtags": ["example", "test"],
+      "mentions": [],
+      "locationName": null
+    },
+    {
+      "inputUrl": "https://www.instagram.com/p/example4/",
+      "displayUrl": "/instagram/2024-03-20-4.jpg",
+      "caption": "Example post 4",
+      "type": "image",
+      "timestamp": "2024-03-20-4",
+      "likesCount": 180,
+      "commentsCount": 18,
+      "hashtags": ["example", "test"],
+      "mentions": [],
+      "locationName": null
+    },
+    {
+      "inputUrl": "https://www.instagram.com/p/example5/",
+      "displayUrl": "/instagram/2024-03-20-5.jpg",
+      "caption": "Example post 5",
+      "type": "image",
+      "timestamp": "2024-03-20-5",
+      "likesCount": 120,
+      "commentsCount": 12,
+      "hashtags": ["example", "test"],
+      "mentions": [],
+      "locationName": null
+    },
+    {
+      "inputUrl": "https://www.instagram.com/p/example6/",
+      "displayUrl": "/instagram/2024-03-20-6.jpg",
+      "caption": "Example post 6",
+      "type": "image",
+      "timestamp": "2024-03-20-6",
+      "likesCount": 160,
+      "commentsCount": 16,
+      "hashtags": ["example", "test"],
+      "mentions": [],
+      "locationName": null
+    }
+  ]
+} 

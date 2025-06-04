@@ -1,9 +1,19 @@
+import { useEffect, useState } from 'react';
 import Button from "./Button";
 
 const Newsletter = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSignUp = () => {
     alert("Newsletter sign up coming soon...")
+  }
+
+  if (!isMounted) {
+    return null;
   }
 
   return (
@@ -61,7 +71,6 @@ const Newsletter = () => {
       </div>
     </section>
   )
-
 };
 
 export default Newsletter;

@@ -1,44 +1,64 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import instagramData from "../instagram.json";
+
+interface InstagramResponse {
+  data: InstagramPost[];
+}
+
+interface InstagramPost {
+  id: number;
+  image: string;
+  link: string;
+  video: boolean;
+  description: string;
+}
+
+export const instagramPosts: InstagramPost[] = [
+  {
+    id: 1,
+    image: "/images/instagram/marapu.jpg",
+    link: "https://www.instagram.com/rasjahknow/p/DB_4BrmTT1a/?img_index=1",
+    description: "Marupu",
+    video: false,
+  },
+  {
+    id: 2,
+    image: "/images/instagram/ras-africa-media-award.jpg",
+    link: "https://www.instagram.com/rasjahknow/p/BqAHWCFAmzQ/?img_index=1",
+    description: "Ras Africa Media Award",
+    video: false,
+  },
+  {
+    id: 3,
+    image: "/images/instagram/ras-bob-marley.jpg",
+    link: "https://www.instagram.com/rasjahknow/p/DJxkPjfzrsq/",
+    description: "Ras Africa Media Award",
+    video: false,
+  },
+  {
+    id: 4,
+    image: "/images/instagram/spicks-specks.jpg",
+    link: "https://www.instagram.com/rasjahknow/reel/CjFQxjXAtoT/",
+    description: "Spicks Specks",
+    video: false,
+  },
+  {
+    id: 5,
+    image: "/images/instagram/jah-jah-man.jpg",
+    link: "https://www.instagram.com/p/Bsn8rj_AE4Q/?igsh=d2w1ZWg3c3owdHlk",
+    description: "Jah Jah Man",
+    video: true,
+  },
+  {
+    id: 6,
+    image: "/images/instagram/antenna-award.jpg",
+    link: "https://www.instagram.com/rasjahknow/reel/CkaNhWuAHUx/",
+    description: "Antenna Award",
+    video: true,
+  },
+];
 
 const Instagram = () => {
-  const [result, setResult] = useState<{ data: any[] } | null>(null);
-  const [error, setError] = useState<boolean>(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      // Try to get cached data from localStorage
-      const cachedData = localStorage.getItem('instagramData');
-      if (cachedData) {
-        const { data, expiry } = JSON.parse(cachedData);
-        const now = new Date();
-        if (now.getTime() < expiry) {
-          setResult(data);
-          return;
-        }
-      }
-
-      try {
-        const response = await fetch(
-          "https://v1.nocodeapi.com/roshambo/instagram/IwFRjheBjJPUkvhF?limit=6"
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setResult(data);
-        // Cache the data in localStorage with expiry
-        const weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
-        const expiry = new Date().getTime() + weekInMilliseconds;
-        localStorage.setItem('instagramData', JSON.stringify({ data, expiry }));
-      } catch (error) {
-        setError(true);
-        console.error("Failed to fetch Instagram data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   return (
     <>
       <style>
@@ -52,14 +72,18 @@ const Instagram = () => {
       </style>
       <section>
         <h2 className="font-semibold uppercase text-2xl mb-6 text-white">
-          FOLLOW <a
+          FOLLOW{" "}
+          <a
             href="https://www.instagram.com/rasjahknow/"
-            className="hover:underline"
+            className="underline hover:no-underline"
             target="_blank"
-            rel="noopener noreferrer">@RASJAHKNOW</a>
+            rel="noopener noreferrer"
+          >
+            @RASJAHKNOW
+          </a>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-3 gap-1">
-          {(result?.data?.length === 0 || error) &&
+          {instagramPosts.length === 0 &&
             [...Array(6)].map((_: any, i: number) => (
               <div key={i}>
                 <a href="#" title="Blank Href">
@@ -75,82 +99,37 @@ const Instagram = () => {
                   </div>
                 </a>
               </div>
-            ))
-          }
-          {
-            result?.data ?
-              result.data.map((item: any, i: number) =>
-                item.media_type === "IMAGE" ? (
-                  <a
-                    key={i}
-                    href={item.permalink}
-                    data-media-type="image"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="relative w-full md:h-60 sm:h-48 h-80 ">
-                      <div className="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0 hover:bg-gray-900 hover:bg-opacity-50" />
-                      <img
-                        className="object-cover w-full h-full"
-                        src={item.media_url}
-                        alt={item.caption}
-                        loading="lazy"
-                      />
+            ))}
+          {instagramPosts.length > 0 &&
+            instagramPosts.slice(0, 6).map((item: InstagramPost, i: number) => (
+              <a
+                key={i}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="relative w-full md:h-60 sm:h-48 h-80">
+                  <div className="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0 hover:bg-gray-900 hover:bg-opacity-50" />
+                  <img
+                    className="object-cover w-full h-full"
+                    src={item.image}
+                    alt={item.description}
+                    loading="lazy"
+                  />
+                  {item.video && (
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                      <svg
+                        className="w-12 h-12 text-white opacity-80 hover:opacity-100 transition-opacity"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z" />
+                      </svg>
                     </div>
-                  </a>
-                ) : item.media_type === "VIDEO" ? (
-                  <a
-                    key={i}
-                    href={item.permalink}
-                    data-media-type="video"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="relative w-full md:h-60 sm:h-48 h-80 ">
-                      <div className="absolute left-0 bottom-0 top-0 right-0 z-30 flex justify-center items-center flex-col hover:bg-gray-900 hover:bg-opacity-50">
-                        <span className="sr-only">Watch the video</span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-20 w-20 text-white"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                        >
-                          <path d="M10 8.64v6.72L15.27 12L10 8.64z" />
-                          <path d="M21 12c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9 9-4.03 9-9zm-18 0c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9-9-4.03-9-9z" />
-                        </svg>
-                      </div>
-                      <div className="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0 z-10" />
-                      <img
-                        className="object-cover w-full h-full"
-                        src={item.thumbnail_url}
-                        alt={item.caption}
-                        loading="lazy"
-                      />
-                    </div>
-                  </a>
-                ) : item.media_type === "CAROUSEL_ALBUM" ? (
-                  <a
-                    key={i}
-                    href={item.permalink}
-                    data-media-type="carousel_item"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="relative w-full md:h-60 sm:h-48 h-80">
-                      <div className="bg-black bg-opacity-30 absolute w-full h-full left-0 bottom-0 top-0 right-0 hover:bg-gray-900 hover:bg-opacity-50" />
-                      <img
-                        className="object-cover w-full h-full"
-                        src={item.media_url}
-                        alt={item.caption}
-                        loading="lazy"
-                      />
-                    </div>
-                  </a>
-                ) : null
-              ) : !error && (
-                <div className="text-white">Loading...</div>
-              )
-          }
+                  )}
+                </div>
+              </a>
+            ))}
         </div>
       </section>
     </>

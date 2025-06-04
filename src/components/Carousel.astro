@@ -33,6 +33,7 @@ const entries = await contentfulClient.getEntries<SlideItem>({
           <div
             class="hidden duration-700 ease-in-out"
             data-carousel-item={item.fields.firstSlide ? "active" : ""}
+            
           >
             <img
               src={item.fields.image.fields.file?.url + '?fm=avif'}
