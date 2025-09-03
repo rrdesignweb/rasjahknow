@@ -1,3 +1,4 @@
+/// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 interface ImportMetaEnv {
   readonly INSTAGRAM_ACCESS_TOKEN: string;
