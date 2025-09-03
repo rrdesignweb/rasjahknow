@@ -49,15 +49,17 @@ const entries = await contentfulClient.getEntries<MemberItem>({
         .map((item: any, i: number) => (
           <div>
             <div class="h-auto md:h-72 hover:opacity-90 hover:cursor-pointer hover:border-l-8 transition-all hover:border-[#e65454]">
-              <Image
-                class="h-auto md:h-72 w-96 grayscale object-cover"
-                src={item.fields.image.fields.file?.url}
-                alt={item.fields.name + " - " + item.fields.instrument}
-                loading="lazy"
-                format="avif"
-                width="270"
-                height="270"
-              />
+              {item.fields.image.fields.file?.url && (
+                <Image
+                  class="h-auto md:h-72 w-96 grayscale object-cover"
+                  src={item.fields.image.fields.file.url}
+                  alt={item.fields.name + " - " + item.fields.instrument}
+                  loading="lazy"
+                  format="avif"
+                  width="270"
+                  height="270"
+                />
+              )}
             </div>
 
             <div class="p-4">
