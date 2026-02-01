@@ -61,11 +61,22 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
     const [albums, setAlbums] = useState<any[]>([]);
     const [lightboxImages, setLightboxImages] = useState<any[]>([]);
     const [selectedAlbum, setSelectedAlbum] = useState<number>(0);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
 
     const [masonaryCols, setMasonaryCols] = useState<any[]>([]);
     let imageIndexCount: number = -1;
     let _delay = 750;
     let wrappedCols: any = [];
+
+    // Check if mobile on mount and resize
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     // Helper to get image name from Contentful entry
     const getImageName = (item: any): string => {
@@ -75,14 +86,12 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
     let images = data && data.map((item: any) => {
         const albumName = item.fields?.album || '';
         const imageName = getImageName(item);
-        // Combine album name and image name for the lightbox title
-        const combinedTitle = imageName ? `${albumName} - ${imageName}` : albumName;
         
         return {
             src: (item.fields?.image?.sys?.id && item.fields?.image?.fields?.file?.url) ? 
                 (item.fields.image.fields.file.url.startsWith('//') ? 'https:' + item.fields.image.fields.file.url : item.fields.image.fields.file.url) + '?fm=avif' : '',
             alt: item.fields?.image?.fields?.file?.title || '',
-            title: combinedTitle,
+            imageName: imageName, // Store image name separately
             album: albumName, // Keep album separate for filtering
         };
     }).filter((image: any) => image.src && image.album && image.album.trim() !== ''); // Filter out items without valid URLs or album names
@@ -151,7 +160,13 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
         imageIndexCount = -1;
         const newImages = images.filter((item: any, i: number) => {
             return item.album === value
-        })
+        }).map((item: any) => ({
+            ...item,
+            // Set title based on screen size - image name only on mobile, full title on desktop
+            title: isMobile 
+                ? (item.imageName || item.album)
+                : (item.imageName ? `${item.album} - ${item.imageName}` : item.album)
+        }))
 
         let listTriple: any[] = []; // the temporary array
 
@@ -184,9 +199,9 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
             imageIndexCount = imageIndexCount + 1
 
             return (
-                <div key={uuidv4()} className="h-full image" >
+                <div key={uuidv4()} className="image aspect-[4/3] md:aspect-auto md:h-full" >
                     <img
-                        className="max-w-full rounded-lg hover:cursor-pointer object-cover h-full"
+                        className="w-full h-full rounded-lg hover:cursor-pointer object-cover"
                         src={item.src}
                         alt={item.alt ? item.alt : item.album}
                         data-index={imageIndexCount}
@@ -235,18 +250,18 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
             <div className="relative min-h-[400px]">
                 {/* Skeleton loader */}
                 <div 
-                    className={`grid md:grid-cols-3 gap-4 transition-opacity duration-300 ${
+                    className={`grid grid-cols-1 md:grid-cols-3 gap-4 transition-opacity duration-300 ${
                         isLoading && !isFadingOut ? 'opacity-100' : 'opacity-0 pointer-events-none'
                     } ${!isLoading ? 'absolute inset-0' : ''}`}
                 >
-                    {[...Array(3)].map((_, colIndex) => (
+                    {[...Array(isMobile ? 4 : 3)].map((_, colIndex) => (
                         <div key={colIndex} className="grid gap-4">
-                            {[...Array(3)].map((_, rowIndex) => (
+                            {[...Array(isMobile ? 1 : 3)].map((_, rowIndex) => (
                                 <div 
                                     key={rowIndex} 
-                                    className="rounded-lg overflow-hidden"
+                                    className="rounded-lg overflow-hidden aspect-[4/3] md:aspect-auto"
                                     style={{ 
-                                        height: `${200 + ((colIndex + rowIndex) % 3) * 80}px`,
+                                        height: isMobile ? 'auto' : `${200 + ((colIndex + rowIndex) % 3) * 80}px`,
                                         background: 'linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%)',
                                         backgroundSize: '200% 100%',
                                         animation: 'shimmer 1.5s infinite ease-in-out',
@@ -265,7 +280,7 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
                 
                 {/* Actual gallery content */}
                 <div 
-                    className={`grid md:grid-cols-3 gap-4 transition-opacity duration-300 ${
+                    className={`grid grid-cols-1 md:grid-cols-3 gap-4 transition-opacity duration-300 ${
                         !isLoading && !isFadingOut ? 'opacity-100' : 'opacity-0'
                     }`}
                 >
