@@ -8,7 +8,8 @@ import "yet-another-react-lightbox/styles.css";
 
 interface IFilters {
     albums: any[];
-    clickHandler: (e: any) => void;
+    selectedAlbum: number;
+    clickHandler: (value: string, index: number) => void;
 }
 interface ILightboxGalleryProps {
     data: any;
@@ -16,13 +17,11 @@ interface ILightboxGalleryProps {
 
 const LightboxGalleryFilters: React.FC<IFilters> = ({
   albums,
+  selectedAlbum,
   clickHandler,
 }: IFilters) => {
-  const [selectedAlbum, setSelectedAlbum] = useState<number>(0); // Add state for selected album
-
   const handleAlbumOnClick = (e: any, index: number) => {
-    setSelectedAlbum(index); // Update state on click
-    clickHandler(e.target.value);
+    clickHandler(e.target.value, index);
   };
 
   return (
@@ -40,8 +39,8 @@ const LightboxGalleryFilters: React.FC<IFilters> = ({
                   name="album"
                   value={item}
                   className="hidden peer"
-                  onChange={(e: any) => handleAlbumOnClick(e, i)} // Pass index to handler
-                  checked={selectedAlbum === i} // Check based on state
+                  onChange={(e: any) => handleAlbumOnClick(e, i)}
+                  checked={selectedAlbum === i}
                 />
                 <span className="text-base text-[#111111] py-3 px-4 border-0 bg-gray-200 rounded-lg peer-checked:bg-black peer-checked:text-white ">
                   {item}
@@ -57,26 +56,59 @@ const LightboxGalleryFilters: React.FC<IFilters> = ({
 const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
     const [open, setOpen] = useState<boolean>(false);
     const [imageIndex, setImageIndex] = useState<number>();
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isFadingOut, setIsFadingOut] = useState(false);
     const [albums, setAlbums] = useState<any[]>([]);
     const [lightboxImages, setLightboxImages] = useState<any[]>([]);
+    const [selectedAlbum, setSelectedAlbum] = useState<number>(0);
 
     const [masonaryCols, setMasonaryCols] = useState<any[]>([]);
     let imageIndexCount: number = -1;
     let _delay = 750;
     let wrappedCols: any = [];
 
-    let images = data && data.map((item: any) => ({
-        src: (item.fields?.image?.sys?.id && item.fields?.image?.fields?.file?.url) ? 
-            (item.fields.image.fields.file.url.startsWith('//') ? 'https:' + item.fields.image.fields.file.url : item.fields.image.fields.file.url) + '?fm=avif' : '',
-        alt: item.fields?.image?.fields?.file?.title || '',
-        title: item.fields.album || '',
-    })).filter((image: any) => image.src); // Filter out items without valid URLs and sys.id
+    // Helper to get image name from Contentful entry
+    const getImageName = (item: any): string => {
+        return item.fields?.name || item.fields?.title || item.fields?.image?.fields?.title || '';
+    };
+
+    let images = data && data.map((item: any) => {
+        const albumName = item.fields?.album || '';
+        const imageName = getImageName(item);
+        // Combine album name and image name for the lightbox title
+        const combinedTitle = imageName ? `${albumName} - ${imageName}` : albumName;
+        
+        return {
+            src: (item.fields?.image?.sys?.id && item.fields?.image?.fields?.file?.url) ? 
+                (item.fields.image.fields.file.url.startsWith('//') ? 'https:' + item.fields.image.fields.file.url : item.fields.image.fields.file.url) + '?fm=avif' : '',
+            alt: item.fields?.image?.fields?.file?.title || '',
+            title: combinedTitle,
+            album: albumName, // Keep album separate for filtering
+        };
+    }).filter((image: any) => image.src && image.album && image.album.trim() !== ''); // Filter out items without valid URLs or album names
+
+    // Get album from URL query param
+    const getAlbumFromUrl = (): string | null => {
+        if (typeof window === 'undefined') return null;
+        const params = new URLSearchParams(window.location.search);
+        return params.get('album');
+    };
+
+    // Update URL with album query param
+    const updateUrlWithAlbum = (albumName: string) => {
+        if (typeof window === 'undefined') return;
+        const url = new URL(window.location.href);
+        url.searchParams.set('album', albumName);
+        window.history.replaceState({}, '', url.toString());
+    };
 
     useEffect(() => {
         const albumCategories: any[] = [];
         data && data.slice(0).reverse().map((item: any, i: number) => {
-            albumCategories.push(item.fields?.album)
+            // Only add non-empty album names
+            if (item.fields?.album && item.fields.album.trim() !== '') {
+                albumCategories.push(item.fields.album)
+            }
         });
 
         const uniq = albumCategories.reduce(function (a, b) {
@@ -90,12 +122,25 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
     }, [])
 
     useEffect(() => {
+        if (albums.length === 0) return;
+        
         setTimeout(() => {
-            albums && albums.find((item: string, i: number) => {
-                return (
-                    i === 0 && filterAlbumImages(item)
-                )
-            })
+            const urlAlbum = getAlbumFromUrl();
+            
+            if (urlAlbum) {
+                // Find the index of the album from URL
+                const albumIndex = albums.findIndex((album: string) => album === urlAlbum);
+                if (albumIndex !== -1) {
+                    setSelectedAlbum(albumIndex);
+                    filterAlbumImages(urlAlbum);
+                    return;
+                }
+            }
+            
+            // Default to first album if no valid query param
+            setSelectedAlbum(0);
+            filterAlbumImages(albums[0]);
+            updateUrlWithAlbum(albums[0]);
         }, _delay)
     }, [albums])
 
@@ -105,7 +150,7 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
     const filterAlbumImages = (value: string) => {
         imageIndexCount = -1;
         const newImages = images.filter((item: any, i: number) => {
-            return item.title === value
+            return item.album === value
         })
 
         let listTriple: any[] = []; // the temporary array
@@ -122,9 +167,16 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
             populateImage(listTriple);
         }
 
-        setMasonaryCols(wrappedCols)
-        setLightboxImages(newImages);
-
+        // Start fade out of skeleton
+        setIsFadingOut(true);
+        
+        // After fade out completes, show the images
+        setTimeout(() => {
+            setMasonaryCols(wrappedCols);
+            setLightboxImages(newImages);
+            setIsLoading(false);
+            setIsFadingOut(false);
+        }, 300); // Match the CSS transition duration
     }
 
     const populateImage = (listTriple: any[]) => {
@@ -136,9 +188,9 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
                     <img
                         className="max-w-full rounded-lg hover:cursor-pointer object-cover h-full"
                         src={item.src}
-                        alt={item.alt ? item.alt : item.title}
+                        alt={item.alt ? item.alt : item.album}
                         data-index={imageIndexCount}
-                        data-album={item.title}
+                        data-album={item.album}
                         onClick={(e) => onOpenImage(e)}
                         loading="lazy"
                     />
@@ -160,26 +212,66 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
         setImageIndex(dataIndex)
     }
 
-    const handleSetSelectedCategory = (value: string) => {
-        setMasonaryCols([]);
-        setLightboxImages([]);
+    const handleSetSelectedCategory = (value: string, index: number) => {
+        setSelectedAlbum(index);
+        updateUrlWithAlbum(value);
+        
+        // Start fade out, then show skeleton, then load new images
+        setIsFadingOut(true);
         setTimeout(() => {
-            filterAlbumImages(value);
-        }, _delay);
+            setMasonaryCols([]);
+            setLightboxImages([]);
+            setIsLoading(true);
+            setIsFadingOut(false);
+            setTimeout(() => {
+                filterAlbumImages(value);
+            }, _delay);
+        }, 300); // Match the CSS transition duration
     }
 
     return (
         <>
-            <LightboxGalleryFilters albums={albums} clickHandler={handleSetSelectedCategory} />
-            {!masonaryCols || masonaryCols.length === 0 ? (
-                <div className="w-full mb-32 flex justify-center">
-                    <img src="/spinner.svg" alt="Spinner" loading="lazy" />
+            <LightboxGalleryFilters albums={albums} selectedAlbum={selectedAlbum} clickHandler={handleSetSelectedCategory} />
+            <div className="relative min-h-[400px]">
+                {/* Skeleton loader */}
+                <div 
+                    className={`grid md:grid-cols-3 gap-4 transition-opacity duration-300 ${
+                        isLoading && !isFadingOut ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                    } ${!isLoading ? 'absolute inset-0' : ''}`}
+                >
+                    {[...Array(3)].map((_, colIndex) => (
+                        <div key={colIndex} className="grid gap-4">
+                            {[...Array(3)].map((_, rowIndex) => (
+                                <div 
+                                    key={rowIndex} 
+                                    className="rounded-lg overflow-hidden"
+                                    style={{ 
+                                        height: `${200 + ((colIndex + rowIndex) % 3) * 80}px`,
+                                        background: 'linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%)',
+                                        backgroundSize: '200% 100%',
+                                        animation: 'shimmer 1.5s infinite ease-in-out',
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    ))}
                 </div>
-            ) : (
-                <div className="grid md:grid-cols-3 gap-4">
+                <style>{`
+                    @keyframes shimmer {
+                        0% { background-position: 200% 0; }
+                        100% { background-position: -200% 0; }
+                    }
+                `}</style>
+                
+                {/* Actual gallery content */}
+                <div 
+                    className={`grid md:grid-cols-3 gap-4 transition-opacity duration-300 ${
+                        !isLoading && !isFadingOut ? 'opacity-100' : 'opacity-0'
+                    }`}
+                >
                     {masonaryCols}
                 </div>
-            )}
+            </div>
             <Lightbox
                 index={imageIndex}
                 open={open}
