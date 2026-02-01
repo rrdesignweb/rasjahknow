@@ -201,7 +201,7 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
             return (
                 <div key={uuidv4()} className="image aspect-[4/3] md:aspect-auto md:h-full" >
                     <img
-                        className="w-full h-full rounded-lg hover:cursor-pointer object-cover"
+                        className="w-full h-full rounded-lg hover:cursor-pointer object-cover object-top"
                         src={item.src}
                         alt={item.alt ? item.alt : item.album}
                         data-index={imageIndexCount}
