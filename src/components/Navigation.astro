@@ -1,3 +1,24 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/biography', label: 'Biography' },
+    { href: '/music', label: 'Music' },
+    { href: '/events', label: 'Events' },
+    { href: '/gallery', label: 'Gallery' },
+    { href: '/video', label: 'Videos' },
+    { href: '/contact', label: 'Contact' },
+];
+
+const isActive = (href: string) => {
+    if (href === '/') {
+        return currentPath === '/';
+    }
+    return currentPath.startsWith(href);
+};
+---
+
 <div class="flex items-center lg:order-2 lg:hidden">
     <button
         data-collapse-toggle="mobile-menu-2"
@@ -37,54 +58,17 @@
     <ul
         class="flex pl-0 flex-col mt-4 font-semibold lg:flex-row lg:space-x-8 lg:mt-0 uppercase list-none"
     >
-        <li>
-            <a
-                href="/"
-                class="hover:text-red-600 block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
-                aria-current="page">Home</a
-            >
-        </li>
-        <li>
-            <a
-                href="/biography"
-                class="hover:text-red-600 block py-2 pr-4 pl-3 text-white  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                >Biography</a
-            >
-        </li>
-        <li>
-            <a
-                href="/music"
-                class="hover:text-red-600 block py-2 pr-4 pl-3 text-white  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                >Music</a
-            >
-        </li>
-        <li>
-            <a
-                href="/events"
-                class="hover:text-red-600 block py-2 pr-4 pl-3 text-white  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                >Events</a
-            >
-        </li>
-        <li>
-            <a
-                href="/gallery"
-                class="hover:text-red-600 block py-2 pr-4 pl-3 text-white  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                >Gallery</a
-            >
-        </li>
-        <li>
-            <a
-                href="/video"
-                class="hover:text-red-600 block py-2 pr-4 pl-3 text-white  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                >Videos</a
-            >
-        </li>
-        <li>
-            <a
-                href="/contact"
-                class="hover:text-red-600 block py-2 pr-4 pl-3 text-white  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                >Contact</a
-            >
-        </li>
+        {navLinks.map((link) => (
+            <li>
+                <a
+                    href={link.href}
+                    class:list={[
+                        "block py-2 pr-4 pl-3 lg:p-0 hover:text-red-600",
+                        isActive(link.href) ? "text-red-600" : "text-white"
+                    ]}
+                    aria-current={isActive(link.href) ? "page" : undefined}
+                >{link.label}</a>
+            </li>
+        ))}
     </ul>
 </nav>
