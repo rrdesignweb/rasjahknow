@@ -276,6 +276,11 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
                         0% { background-position: 200% 0; }
                         100% { background-position: -200% 0; }
                     }
+                    @media (max-width: 767px) {
+                        .yarl__slide_title {
+                            font-size: 14px !important;
+                        }
+                    }
                 `}</style>
                 
                 {/* Actual gallery content */}
