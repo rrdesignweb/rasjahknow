@@ -26,11 +26,11 @@ const LightboxGalleryFilters: React.FC<IFilters> = ({
 
   return (
     <div className="wrapper-class">
-      <div className="mb-10 flex justify-center items-center">
+      <div className="mb-10 flex justify-start uppercase items-center">
         <label htmlFor="AlbumList" className="mr-6 hidden">
           Photo Albums:
         </label>
-        <div id="AlbumList" className="flex flex-wrap gap-1 ">
+        <div id="AlbumList" className="flex flex-wrap gap-2">
           {albums &&
             albums.map((item: string, i: number) => (
               <label key={i} className="flex cursor-pointer">
@@ -42,7 +42,7 @@ const LightboxGalleryFilters: React.FC<IFilters> = ({
                   onChange={(e: any) => handleAlbumOnClick(e, i)}
                   checked={selectedAlbum === i}
                 />
-                <span className="text-base text-[#111111] py-3 px-4 border-0 bg-gray-200 rounded-lg peer-checked:bg-black peer-checked:text-white ">
+                <span className="text-base text-[#111111] py-3 px-4 border-0 bg-gray-200 peer-checked:bg-black peer-checked:text-white ">
                   {item}
                 </span>
               </label>

@@ -34,8 +34,9 @@ module.exports = {
 			'gray-light': '#d3dce6',
 		},
 		fontFamily: {
-			sans: ['Open Sans', 'sans-serif'],
+			sans: ['Poppins', 'sans-serif'],
 			serif: ['Merriweather', 'serif'],
+			rockSalt: ['Rock Salt', 'serif'],
 		},
 		fontSize: {
 			"sm": "0.8rem",

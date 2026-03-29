@@ -53,7 +53,7 @@ const Newsletter = () => {
       <section className="text-white">
         <div className="mx-auto max-w-screen-xl px-2 md:px-16">
           <div className="mx-auto max-w-screen-md text-center mt-10 md:m-0">
-            <h3 className="mb-4 text-xl md:text-2xl tracking-tight font-semibold uppercase text-white">
+            <h3 className="mb-4 text-xl md:text-2xl tracking-tight font-semibold  text-white">
               Thank you!
             </h3>
             <p className="mx-auto max-w-2xl font-light text-white sm:text-xl">
@@ -69,7 +69,7 @@ const Newsletter = () => {
     <section className="text-white">
       <div className="mx-auto max-w-screen-xl px-2 md:px-16">
         <div className="mx-auto max-w-screen-md text-center mt-10 md:m-0">
-          <h3 className="mb-4 text-xl md:text-2xl tracking-tight font-semibold uppercase text-white">
+          <h3 className="mb-4 text-xl md:text-2xl tracking-tight font-semibold  text-white">
             Join our mailing list
           </h3>
           <p className="mx-auto mb-8 max-w-2xl font-light text-white md:mb-12 sm:text-xl">
@@ -116,7 +116,7 @@ const Newsletter = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="cursor-pointer appearance-none py-2 my-4 px-4 bg-transparent border-2 uppercase text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 w-60 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="cursor-pointer uppercase appearance-none py-2 my-4 px-4 bg-transparent border-2  text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 w-60 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <span className="flex items-center justify-center gap-2">

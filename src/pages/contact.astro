@@ -23,15 +23,13 @@ interface ContactPage {
 }
 
 const entry: any = await contentfulClient.getEntry<ContactPage>(
-  "eRL0cxhoQMb3vZTgIHiUO"
+  "eRL0cxhoQMb3vZTgIHiUO",
 );
 
 let options = {
   renderNode: {
     [BLOCKS.HEADING_2]: (node: any, next: any) =>
-      `<h2 class="text-2xl font-semibold mb-4 uppercase">${next(
-        node.content
-      )}</h2>`,
+      `<h2 class="text-2xl font-semibold mb-4 ">${next(node.content)}</h2>`,
     [INLINES.HYPERLINK]: (node: any, next: any) =>
       `<p><a href="${
         node.data.uri
@@ -49,7 +47,7 @@ let bodyHTML = entry ? documentToHtmlString(entry.fields.content, options) : "";
     image={entry?.fields.heroBanner.fields.file?.url + "?fm=avif"}
   />
   <section
-    class="w-11/12 md:w-9/12 flex md:flex-row flex-col-reverse gap-10 mx-auto my-12"
+    class="container w-11/12 md:w-9/12 flex md:flex-row flex-col-reverse gap-10 mx-auto my-12"
   >
     <div class="w-12/12 md:w-6/12 mt-2">
       <form
@@ -125,10 +123,8 @@ let bodyHTML = entry ? documentToHtmlString(entry.fields.content, options) : "";
         </div>
       </form>
     </div>
-    <div class="w-12/12 md:w-6/12">
-      <div class="">
-        <Fragment set:html={bodyHTML} />
-      </div>
+    <div class="w-12/12 md:w-6/12 contact-details">
+      <Fragment set:html={bodyHTML} />
     </div>
   </section>
   <PressKit />

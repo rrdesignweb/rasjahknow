@@ -71,16 +71,23 @@ const Instagram = () => {
         `}
       </style>
       <section>
-        <h2 className="font-semibold uppercase text-2xl mb-6 text-white">
-          FOLLOW{" "}
+        <h2 className="font-semibold text-2xl mb-6 text-white flex items-center gap-4 md:flex-row flex-col">
+           Follow{" "}
           <a
             href="https://www.instagram.com/rasjahknow/"
-            className="underline hover:no-underline"
+            className="inline-flex items-center gap-2 underline hover:no-underline"
             target="_blank"
             rel="noopener noreferrer"
           >
-            @RASJAHKNOW
+            @rasjahknow
           </a>
+          <span className="inline-flex items-center gap-2">
+            <img
+              src="/instagram.svg"
+              alt="Instagram logo"
+              className="h-8 w-8"
+            />
+          </span>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-3 gap-1">
           {instagramPosts.length === 0 &&

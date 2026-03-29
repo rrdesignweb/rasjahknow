@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import useIsHydrated from "../hooks/useIsHydrated";
 
+const toTitleCase = (value: string) =>
+  value.toLowerCase().replace(/(^|[\s/-])([a-z])/g, (match) => match.toUpperCase());
+
 const EventsList = () => {
   const [upcomingData, setUpcomingData] = useState<any>();
   const [pastData, setPastData] = useState<any>();
@@ -45,7 +48,7 @@ const EventsList = () => {
         // Sort past shows by date (newest first) and take the first 10
         const sortedPastData = [...pastData]
           .sort((a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime())
-          .slice(0, 10);
+          .slice(0, 12);
         setPastData(sortedPastData);
       } catch (error) {
         console.error('Error fetching events:', error);
@@ -83,7 +86,7 @@ const EventsList = () => {
             target="_blank"
             href={event?.offers[0]?.url ? event?.offers[0]?.url : event.url}
           >
-            {event.venue.name}
+            {toTitleCase(event.venue.name)}
           </a>
         </div>
         <div className="md:flex flex-col mb-3 md:mb-0">
@@ -170,10 +173,10 @@ const EventsList = () => {
 
   return (
     <section className="bg-black bg-opacity-80 mx-auto pb-8 pt-4">
-      <div className="w-11/12 md:w-9/12 mx-auto my-5">
+      <div className="container w-11/12 md:w-9/12 mx-auto my-5">
         {/* Upcoming Shows Section */}
         <div className="flex justify-between items-center">
-          <h3 className="text-white text-2xl font-semibold py-10 uppercase">
+          <h3 className="text-white text-2xl font-semibold py-10">
             Upcoming Shows
           </h3>
         </div>
@@ -187,7 +190,7 @@ const EventsList = () => {
 
         {/* Past Shows Section */}
         <div className="flex justify-between items-center mt-16">
-          <h3 className="text-white text-2xl font-semibold py-10 uppercase">
+          <h3 className="text-white text-2xl font-semibold py-10">
             Past Shows
           </h3>
         </div>
