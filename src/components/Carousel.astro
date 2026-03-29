@@ -23,7 +23,12 @@ const entries = await contentfulClient.getEntries<SlideItem>({
 });
 ---
 
-<div id="controls-carousel" class="relative w-full" data-carousel="slide">
+<div
+  id="controls-carousel"
+  class="relative w-full"
+  data-carousel="slide"
+  data-carousel-interval="7500"
+>
 
   <!-- Carousel wrapper -->
   <div class="relative h-screen overflow-hidden">
@@ -31,7 +36,7 @@ const entries = await contentfulClient.getEntries<SlideItem>({
       entries &&
         entries.items.map((item: any, i: number) => (
           <div
-            class="hidden duration-700 ease-in-out"
+            class="hidden duration-1000 ease-in-out"
             data-carousel-item={item.fields.firstSlide ? "active" : ""}
             
           >
