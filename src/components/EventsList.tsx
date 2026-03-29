@@ -82,7 +82,7 @@ const EventsList = () => {
         </div>
         <div className="md:flex mb-3 md:mb-0">
           <a
-            className="hover:underline hover:underline-offset-4"
+            className="hover:underline hover:underline-offset-4 text-balance"
             target="_blank"
             href={event?.offers[0]?.url ? event?.offers[0]?.url : event.url}
           >
