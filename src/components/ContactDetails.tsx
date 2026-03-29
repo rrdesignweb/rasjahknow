@@ -1,7 +1,7 @@
 const ContactDetails = () => {
   return (
     <p className="!mb-0 md:text-right md:pt-0 pt-4">
-      For bookings contact: Jorge Abreu <br />
+      Manager: Jorge Abreu <br />
       Phone:{" "}
       <a
         className="text-red-700 hover:text-red-900"
