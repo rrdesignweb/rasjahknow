@@ -43,7 +43,7 @@ const entries: any = await contentfulClient.getEntries<MusicItem>({
     image={entry?.fields.heroBanner.fields.file?.url + "?fm=avif"}
   />
   <section class="w-11/12 md:w-9/12 container mx-auto mt-10 mb-6">
-    <h3 class="text-2xl font-semibold">Listen to the Music</h3>
+    <h3 class="text-1xl md:text-2xl font-semibold">Listen to the Music</h3>
     <p>{entry?.fields?.content ?? "Explore Ras Jahknow releases and listen to the latest roots reggae recordings."}</p>
   </section>
   <section

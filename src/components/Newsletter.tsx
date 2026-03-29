@@ -53,7 +53,7 @@ const Newsletter = () => {
       <section className="text-white">
         <div className="mx-auto max-w-screen-xl px-2 md:px-16">
           <div className="mx-auto max-w-screen-md text-center mt-10 md:m-0">
-            <h3 className="mb-4 text-xl md:text-2xl tracking-tight font-semibold  text-white">
+            <h3 className="mb-4 text-1xl md:text-2xl tracking-tight font-semibold  text-white">
               Thank you!
             </h3>
             <p className="mx-auto max-w-2xl font-light text-white sm:text-xl">
@@ -69,7 +69,7 @@ const Newsletter = () => {
     <section className="text-white">
       <div className="mx-auto max-w-screen-xl px-2 md:px-16">
         <div className="mx-auto max-w-screen-md text-center mt-10 md:m-0">
-          <h3 className="mb-4 text-xl md:text-2xl tracking-tight font-semibold  text-white">
+          <h3 className="mb-4 text-1xl md:text-2xl tracking-tight font-semibold  text-white">
             Join our mailing list
           </h3>
           <p className="mx-auto mb-8 max-w-2xl font-light text-white md:mb-12 sm:text-xl">

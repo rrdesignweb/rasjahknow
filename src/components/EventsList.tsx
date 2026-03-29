@@ -156,7 +156,7 @@ const EventsList = () => {
       <section className="bg-black bg-opacity-80 mx-auto pb-8 pt-4">
         <div className="w-11/12 md:w-9/12 mx-auto my-5">
           <div className="flex justify-between items-center">
-            <h3 className="text-white text-2xl font-semibold py-10 uppercase">
+            <h3 className="text-white text-1xl md:text-2xl font-semibold py-10 uppercase">
               Loading Shows...
             </h3>
           </div>
@@ -176,7 +176,7 @@ const EventsList = () => {
       <div className="container w-11/12 md:w-9/12 mx-auto my-5">
         {/* Upcoming Shows Section */}
         <div className="flex justify-between items-center">
-          <h3 className="text-white text-2xl font-semibold py-10">
+          <h3 className="text-white text-1xl md:text-2xl font-semibold py-10">
             Upcoming Shows
           </h3>
         </div>
@@ -190,7 +190,7 @@ const EventsList = () => {
 
         {/* Past Shows Section */}
         <div className="flex justify-between items-center mt-16">
-          <h3 className="text-white text-2xl font-semibold py-10">
+          <h3 className="text-white text-1xl md:text-2xl font-semibold py-10">
             Past Shows
           </h3>
         </div>

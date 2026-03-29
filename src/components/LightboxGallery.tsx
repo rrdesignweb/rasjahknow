@@ -201,7 +201,7 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
             return (
                 <div key={uuidv4()} className="image aspect-[4/3] md:aspect-auto md:h-full" >
                     <img
-                        className="w-full h-full rounded-lg hover:cursor-pointer object-cover object-top"
+                        className="w-full h-full hover:cursor-pointer object-cover object-top"
                         src={item.src}
                         alt={item.alt ? item.alt : item.album}
                         data-index={imageIndexCount}
@@ -259,7 +259,7 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
                             {[...Array(isMobile ? 1 : 3)].map((_, rowIndex) => (
                                 <div 
                                     key={rowIndex} 
-                                    className="rounded-lg overflow-hidden aspect-[4/3] md:aspect-auto"
+                                    className="overflow-hidden aspect-[4/3] md:aspect-auto"
                                     style={{ 
                                         height: isMobile ? 'auto' : `${200 + ((colIndex + rowIndex) % 3) * 80}px`,
                                         background: 'linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%)',
