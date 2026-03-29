@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Carousel from "../components/Carousel.astro";
 import Members from "../components/Members.astro";
+import SocialCards from "../components/SocialCards.astro";
 import AlbumsHome from "../components/AlbumsHome.astro";
 import EventsList from "../components/EventsList";
 import VideoFeatured from "../components/VideoFeatured.astro";
@@ -11,8 +12,10 @@ import PressKit from "../components/PressKit.astro";
 <Layout title="Ras Jahknow">
   <Carousel />
   <section class="w-9/12 mx-auto my-10">
+    <SocialCards />
     <Members />
   </section>
+  
   <AlbumsHome />
   <EventsList client:load />
   <VideoFeatured />

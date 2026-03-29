@@ -1,0 +1,65 @@
+---
+const socialLinks = [
+  {
+    label: "Connect with Ras Jahknow on Facebook",
+    href: "https://www.facebook.com/rasjahknowband",
+    borderClass: "bg-gradient-to-r from-red-500 via-yellow-300 to-green-500",
+    icon: "/facebook.svg",
+  },
+  {
+    label: "Watch Ras Jahknow on YouTube",
+    href: "https://www.youtube.com/rasjahknow",
+    borderClass: "bg-gradient-to-r from-red-500 via-yellow-300 to-green-500",
+    icon: "/youtube.svg",
+  },
+  {
+    label: "Connect with Ras Jahknow on Instagram",
+    href: "https://www.instagram.com/rasjahknow",
+    borderClass: "bg-gradient-to-r from-red-500 via-yellow-300 to-green-500",
+    icon: "/instagram.svg",
+  },
+  {
+    label: "Connect with Ras Jahknow on TikTok",
+    href: "https://www.tiktok.com/@ras.jahknow.band",
+    borderClass: "bg-gradient-to-r from-red-500 via-yellow-300 to-green-500",
+    icon: "/tiktok.svg",
+  },
+];
+---
+
+<div class="mb-6">
+  <div class="rounded-[calc(1.5rem-1px)]">
+    <div class="mb-6">
+      <h2 class="text-2xl font-semibold uppercase">Follow Ras Jahknow</h2>
+    </div>
+    <div class="grid gap-6 md:grid-cols-2">
+      {socialLinks.map((link) => (
+        <div
+          class:list={[
+            "p-[2px] transition-shadow duration-200 ease-in-out hover:shadow-md",
+            link.borderClass,
+          ]}
+        >
+          <a
+            class="group flex items-center gap-4 bg-white px-6 py-6 text-left text-xl font-semibold uppercase text-black"
+            href={link.href}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <span
+              class="transform flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white transition-all duration-200 ease-in-out group-hover:scale-110 group-hover:border-gray-400 group-hover:bg-gray-100"
+            >
+              <img
+                class="h-6 w-6 brightness-0 transition-transform duration-200 ease-in-out"
+                src={link.icon}
+                alt={`${link.label} icon`}
+                loading="lazy"
+              />
+            </span>
+            <span>{link.label}</span>
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
