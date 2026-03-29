@@ -28,10 +28,10 @@ const entries = await contentfulClient.getEntries<MemberItem>({
 ---
 
 <div
-  class="flex w-full justify-between md:flex-row md:items-center mb-6 flex-col py-8"
+  class="flex w-full justify-between md:items-center flex-col-reverse md:flex-row mb-6 py-8 gap-6 md:gap-0"
 >
-  <div class="md:m-0 mb-6 ">
-    <h2 class="text-1xl md:text-2xl font-semibold  mb-6">Band Members</h2>
+  <div class="md:m-0 mt-6">
+    <h2 class="text-1xl md:text-2xl font-semibold pb-6">Band Members</h2>
  
     <Button href="/biography" className="!text-black hover:!text-white">
       View Biography
