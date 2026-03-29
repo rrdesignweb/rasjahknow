@@ -23,7 +23,7 @@ const entries = await contentfulClient.getEntries<MusicItem>({
       <h2 class="text-white text-2xl font-semibold pb-6">Music</h2>
       <Button href="/music">View all albums</Button>
     </div>
-    <div class="Albums flex p-10 gap-x-8 gap-y-2 overflow-x-auto " tabindex="0">
+    <div class="Albums flex p-10 gap-x-8 gap-y-2 overflow-x-auto" tabindex="0">
       {
         entries &&
           entries.items
@@ -79,7 +79,7 @@ const entries = await contentfulClient.getEntries<MusicItem>({
 <style is:inline>
   /* Firefox */
   .Albums {
-    scrollbar-width: thin;
+    scrollbar-width: auto;
     scrollbar-color: var(--secondary) var(--primary);
   }
 
