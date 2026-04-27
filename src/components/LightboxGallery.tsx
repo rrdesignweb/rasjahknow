@@ -20,6 +20,9 @@ const LightboxGalleryFilters: React.FC<IFilters> = ({
   selectedAlbum,
   clickHandler,
 }: IFilters) => {
+  const formatAlbumLabel = (albumName: string) =>
+    albumName.replace(/\b(19|20)\d{2}\b/g, "").replace(/\s{2,}/g, " ").trim();
+
   const handleAlbumOnClick = (e: any, index: number) => {
     clickHandler(e.target.value, index);
   };
@@ -43,7 +46,7 @@ const LightboxGalleryFilters: React.FC<IFilters> = ({
                   checked={selectedAlbum === i}
                 />
                 <span className="text-base text-[#111111] py-3 px-4 border-0 bg-gray-200 peer-checked:bg-black peer-checked:text-white ">
-                  {item}
+                  {formatAlbumLabel(item)}
                 </span>
               </label>
             ))}
