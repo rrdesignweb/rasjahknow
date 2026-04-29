@@ -105,7 +105,7 @@ const EventsList = () => {
             </div>
             <div className="md:flex md:col-start-2 flex-col">
               {title === "Past" ? (
-                <span className="text-balance">
+                <span className="text-balance mr-4">
                   {toTitleCase(event?.venue?.name || "")}
                   {event?.free ? <span className="hidden md:inline"> (Free)</span> : null}
                 </span>
