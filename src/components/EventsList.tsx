@@ -9,11 +9,11 @@ const EventsList = () => {
   const [upcomingData, setUpcomingData] = useState<any>();
   const [pastData, setPastData] = useState<any>();
   const [loading, setIsLoading] = useState<boolean>(false);
-  const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({});
+  const [expandedRowKey, setExpandedRowKey] = useState<string | null>(null);
   const isHydrated = useIsHydrated();
 
   const toggleRow = (rowKey: string) => {
-    setExpandedRows((prev) => ({ ...prev, [rowKey]: !prev[rowKey] }));
+    setExpandedRowKey((prev) => (prev === rowKey ? null : rowKey));
   };
 
   const getEventCost = (event: any): string | null => {
@@ -91,7 +91,7 @@ const EventsList = () => {
 
     return events.map((event: any, i: number) => {
       const rowKey = `${title}-${event?.id || i}`;
-      const isExpanded = !!expandedRows[rowKey];
+      const isExpanded = expandedRowKey === rowKey;
       const eventCost = getEventCost(event);
 
       return (
@@ -104,36 +104,43 @@ const EventsList = () => {
               {format(new Date(event.datetime), "LLL d eee yyyy")}
             </div>
             <div className="md:flex md:col-start-2 flex-col">
-              <a
-                className="underline underline-offset-4 hover:no-underline text-balance"
-                target="_blank"
-                rel="noreferrer"
-                href={event?.offers[0]?.url ? event?.offers[0]?.url : event.url}
-              >
-                <span>
+              {title === "Past" ? (
+                <span className="text-balance">
                   {toTitleCase(event?.venue?.name || "")}
                   {event?.free ? <span className="hidden md:inline"> (Free)</span> : null}
-                  <span className="inline-block ml-2 align-middle">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M14 3h7v7" />
-                    <path d="M10 14 21 3" />
-                    <path d="M21 14v7h-7" />
-                    <path d="M3 10v11h11" />
-                  </svg>
-                  </span>
                 </span>
-              </a>
+              ) : (
+                <a
+                  className="underline underline-offset-4 hover:no-underline text-balance"
+                  target="_blank"
+                  rel="noreferrer"
+                  href={event?.offers[0]?.url ? event?.offers[0]?.url : event.url}
+                >
+                  <span>
+                    {toTitleCase(event?.venue?.name || "")}
+                    {event?.free ? <span className="hidden md:inline"> (Free)</span> : null}
+                    <span className="inline-block ml-2 align-middle">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M14 3h7v7" />
+                        <path d="M10 14 21 3" />
+                        <path d="M21 14v7h-7" />
+                        <path d="M3 10v11h11" />
+                      </svg>
+                    </span>
+                  </span>
+                </a>
+              )}
             </div>
             <div className="md:flex md:col-start-3 flex-col">
               <a
