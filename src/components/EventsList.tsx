@@ -199,38 +199,44 @@ const EventsList = () => {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className={isExpanded ? "rotate-180" : ""}
+                  className={`transition-transform duration-300 ease-in-out ${isExpanded ? "rotate-180" : "rotate-0"}`}
                 >
                   <path d="m6 9 6 6 6-6" />
                 </svg>
               </button>
             </div>
           </div>
-          {isExpanded && (
-            <div className="px-8 pt-6 pb-6 border-t border-white/20 text-base space-y-1">
-              <div>
-                <span className="font-semibold">Lineup:</span>{" "}
-                {event.lineup?.length ? event.lineup.join(", ") : "TBA"}
-              </div>
-              <div>
-                <span className="font-semibold">Address:</span>{" "}
-                <a
-                  className="underline underline-offset-4 hover:no-underline"
-                  target="_blank"
-                  rel="noreferrer"
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                    `${event.venue.street_address} ${event.venue.city} ${event.venue.country} ${event.venue.postal_code}`
-                  )}`}
-                >
-                  {`${event.venue.street_address || ""} ${event.venue.city || ""} ${event.venue.postal_code || ""} ${event.venue.country || ""}`.trim()}
-                </a>
-              </div>
-              <div>
-                <span className="font-semibold">Start:</span>{" "}
-                {format(new Date(event.datetime), "PP")} {format(new Date(event.datetime), "p")}
+          <div
+            className={`grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
+              isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+            }`}
+          >
+            <div className="overflow-hidden">
+              <div className="px-8 pt-6 pb-6 border-t border-white/20 text-base space-y-1">
+                <div>
+                  <span className="font-semibold">Lineup:</span>{" "}
+                  {event.lineup?.length ? event.lineup.join(", ") : "TBA"}
+                </div>
+                <div>
+                  <span className="font-semibold">Address:</span>{" "}
+                  <a
+                    className="underline underline-offset-4 hover:no-underline"
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                      `${event.venue.street_address} ${event.venue.city} ${event.venue.country} ${event.venue.postal_code}`
+                    )}`}
+                  >
+                    {`${event.venue.street_address || ""} ${event.venue.city || ""} ${event.venue.postal_code || ""} ${event.venue.country || ""}`.trim()}
+                  </a>
+                </div>
+                <div>
+                  <span className="font-semibold">Start:</span>{" "}
+                  {format(new Date(event.datetime), "PP")} {format(new Date(event.datetime), "p")}
+                </div>
               </div>
             </div>
-          )}
+          </div>
         </div>
       );
     });
@@ -250,7 +256,25 @@ const EventsList = () => {
             <div className="md:flex">Event</div>
             <div className="hidden md:flex">Location</div>
             <div className="w-full md:text-right">Tickets</div>
-            <div className="w-full md:text-right"></div>
+            <div className="w-full md:grid md:place-items-center md:ml-1">
+              <svg
+                className="md:ml-0.75"
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 16v-4" />
+                <circle cx="12" cy="8" r="0.8" fill="currentColor" stroke="none" />
+              </svg>
+            </div>
           </div>
           {loadingComponent()}
         </div>
@@ -271,7 +295,25 @@ const EventsList = () => {
           <div className="md:flex">Event</div>
           <div className="hidden md:flex">Location</div>
           <div className="w-full md:text-right">Tickets</div>
-          <div className="w-full md:text-right"></div>
+          <div className="w-full md:grid md:place-items-center md:ml-1">
+            <svg
+              className="md:ml-0.75"
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 16v-4" />
+              <circle cx="12" cy="8" r="0.8" fill="currentColor" stroke="none" />
+            </svg>
+          </div>
         </div>
         {loading ? loadingComponent() : renderEventsList(upcomingData, "Upcoming")}
 
@@ -286,7 +328,25 @@ const EventsList = () => {
           <div className="md:flex">Event</div>
           <div className="hidden md:flex">Location</div>
           <div className="w-full md:text-right">Tickets</div>
-          <div className="w-full md:text-right"></div>
+          <div className="w-full md:grid md:place-items-center md:ml-1">
+            <svg
+              className="md:ml-0.75"
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 16v-4" />
+              <circle cx="12" cy="8" r="0.8" fill="currentColor" stroke="none" />
+            </svg>
+          </div>
         </div>
         {loading ? loadingComponent() : renderEventsList(pastData, "Past")}
       </div>
