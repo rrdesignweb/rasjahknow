@@ -159,9 +159,10 @@ const EventsList = () => {
               {title === "Past" ? (
                 <button
                   disabled
-                  className="w-48 cursor-not-allowed appearance-none py-2 px-4 bg-gray-500 border-2 uppercase text-white font-semibold shadow-md opacity-50"
+                  className="w-auto inline-block md:w-48 cursor-not-allowed appearance-none py-2 px-4 bg-gray-500 border-2 uppercase text-white font-semibold shadow-md opacity-50"
                 >
-                  Unavailable
+                  <span className="inline-block md:hidden">Tickets Unavailable</span>
+                  <span className="hidden md:inline-block">Unavailable</span>
                 </button>
               ) : (
                 <a
@@ -169,7 +170,7 @@ const EventsList = () => {
                   rel="noreferrer"
                   target="_blank"
                   title={event.title}
-                  className="w-48 cursor-pointer appearance-none py-2 px-4 bg-transparent border-2 uppercase text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                  className="w-auto inline-block md:w-48 cursor-pointer appearance-none py-2 px-4 bg-transparent border-2 uppercase text-white font-semibold shadow-md hover:bg-red-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
                 >
                   {event?.offers[0]?.type === "Tickets" ? "Buy Tickets" : ""}
                   {event?.offers[0]?.type === "VIP" ? "VIP Tickets" : ""}
@@ -181,7 +182,7 @@ const EventsList = () => {
               <button
                 type="button"
                 onClick={() => toggleRow(rowKey)}
-                className="inline-flex items-center justify-center gap-2 px-3 py-2 border border-white/60 hover:border-white"
+                className="inline-flex items-center justify-center gap-2 p-3 border border-white/60 hover:border-white"
                 aria-expanded={isExpanded}
                 aria-label={isExpanded ? "Hide event details" : "Show event details"}
               >
