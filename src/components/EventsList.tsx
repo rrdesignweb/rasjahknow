@@ -16,6 +16,20 @@ const EventsList = () => {
     setExpandedRows((prev) => ({ ...prev, [rowKey]: !prev[rowKey] }));
   };
 
+  const getEventCost = (event: any): string | null => {
+    if (event?.free) return "Free";
+
+    const firstOffer = event?.offers?.[0];
+    if (!firstOffer) return null;
+
+    const amount = firstOffer?.price ?? firstOffer?.amount;
+    const currency = firstOffer?.currency;
+
+    if (amount && currency) return `${currency} ${amount}`;
+    if (amount) return `${amount}`;
+    return null;
+  };
+
   const loadingComponent = () => {
     return (
       <>
@@ -78,6 +92,7 @@ const EventsList = () => {
     return events.map((event: any, i: number) => {
       const rowKey = `${title}-${event?.id || i}`;
       const isExpanded = !!expandedRows[rowKey];
+      const eventCost = getEventCost(event);
 
       return (
         <div key={rowKey} className="bg-gray-600 bg-opacity-70 mb-2 text-white">
@@ -97,6 +112,7 @@ const EventsList = () => {
               >
                 <span>
                   {toTitleCase(event?.venue?.name || "")}
+                  {event?.free ? <span className="hidden md:inline"> (Free)</span> : null}
                   <span className="inline-block ml-2 align-middle">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +190,7 @@ const EventsList = () => {
                 >
                   {event?.offers[0]?.type === "Tickets" ? "Buy Tickets" : ""}
                   {event?.offers[0]?.type === "VIP" ? "VIP Tickets" : ""}
-                  {event?.offers[0]?.type === "Free" ? "Free Event" : ""}
+                  {event?.offers[0]?.type === "Free" ? "Get Tickets" : ""}
                 </a>
               )}
             </div>
@@ -234,6 +250,12 @@ const EventsList = () => {
                   <span className="font-semibold">Start:</span>{" "}
                   {format(new Date(event.datetime), "PP")} {format(new Date(event.datetime), "p")}
                 </div>
+                {eventCost && (
+                  <div>
+                    <span className="font-semibold">Cost:</span>{" "}
+                    {event?.free ? "Free Event" : eventCost}
+                  </div>
+                )}
               </div>
             </div>
           </div>
