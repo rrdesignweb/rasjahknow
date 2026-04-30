@@ -10,6 +10,7 @@ interface IFilters {
     albums: any[];
     selectedAlbum: number;
     clickHandler: (value: string, index: number) => void;
+    isMobile: boolean;
 }
 interface ILightboxGalleryProps {
     data: any;
@@ -19,7 +20,10 @@ const LightboxGalleryFilters: React.FC<IFilters> = ({
   albums,
   selectedAlbum,
   clickHandler,
+  isMobile,
 }: IFilters) => {
+  const [showAllMobileFilters, setShowAllMobileFilters] = useState(false);
+
   const formatAlbumLabel = (albumName: string) =>
     albumName.replace(/\b(19|20)\d{2}\b/g, "").replace(/\s{2,}/g, " ").trim();
 
@@ -27,12 +31,53 @@ const LightboxGalleryFilters: React.FC<IFilters> = ({
     clickHandler(e.target.value, index);
   };
 
+  const renderAlbumFilters = (items: string[], startIndex = 0) =>
+    items.map((item: string, i: number) => {
+      const absoluteIndex = i + startIndex;
+
+      return (
+        <label
+          key={absoluteIndex}
+          className="flex cursor-pointer shrink-0"
+        >
+          <input
+            type="radio"
+            name="album"
+            value={item}
+            className="hidden peer"
+            onChange={(e: any) => handleAlbumOnClick(e, absoluteIndex)}
+            checked={selectedAlbum === absoluteIndex}
+          />
+          <span className="text-base text-[#111111] py-3 px-4 border-0 bg-gray-200 peer-checked:bg-black peer-checked:text-white ">
+            {formatAlbumLabel(item)}
+          </span>
+        </label>
+      );
+    });
+
   return (
     <div className="wrapper-class">
-      <div className="mb-10 flex justify-start uppercase items-center">
+      <div className="mb-10 uppercase">
         <label htmlFor="AlbumList" className="mr-6 hidden">
           Photo Albums:
         </label>
+        {isMobile ? (
+          <div id="AlbumList" className="flex flex-wrap items-center gap-2">
+            {showAllMobileFilters
+              ? renderAlbumFilters(albums)
+              : renderAlbumFilters(albums.slice(0, 5))}
+            {!showAllMobileFilters && albums.length > 5 && (
+              <button
+                type="button"
+                onClick={() => setShowAllMobileFilters(true)}
+                className="h-12 px-4 border border-gray-300 bg-gray-100 text-[#111111] hover:bg-gray-200"
+                aria-label="Show more albums"
+              >
+                ...More
+              </button>
+            )}
+          </div>
+        ) : (
         <div id="AlbumList" className="flex flex-wrap gap-2">
           {albums &&
             albums.map((item: string, i: number) => (
@@ -51,6 +96,7 @@ const LightboxGalleryFilters: React.FC<IFilters> = ({
               </label>
             ))}
         </div>
+        )}
       </div>
     </div>
   );
@@ -128,7 +174,11 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
             return a;
         }, []);
 
-        setAlbums([].concat.apply([], uniq));
+        const sortedAlbums = [...uniq].sort((a: string, b: string) =>
+            a.localeCompare(b, undefined, { sensitivity: "base" })
+        );
+
+        setAlbums([].concat.apply([], sortedAlbums));
         setLightboxImages(images)
 
     }, [])
@@ -249,7 +299,7 @@ const LightboxGallery = ({ data }: ILightboxGalleryProps) => {
 
     return (
         <>
-            <LightboxGalleryFilters albums={albums} selectedAlbum={selectedAlbum} clickHandler={handleSetSelectedCategory} />
+            <LightboxGalleryFilters albums={albums} selectedAlbum={selectedAlbum} clickHandler={handleSetSelectedCategory} isMobile={isMobile} />
             <div className="relative min-h-[400px]">
                 {/* Skeleton loader */}
                 <div 
