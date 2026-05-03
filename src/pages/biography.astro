@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
 
 import { contentfulClient } from "../lib/contentful";
+import { contentfulAssetUrl } from "../lib/contentfulAssetUrl";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import PressKit from "../components/PressKit.astro";
 
@@ -12,6 +13,13 @@ interface BioograhyPage {
     title: string;
     subTitle: string;
     heroBanner: {
+      fields: {
+        file: {
+          url: string | undefined;
+        };
+      };
+    };
+    heroBannerDesktop?: {
       fields: {
         file: {
           url: string | undefined;
@@ -49,7 +57,8 @@ let bodyHTML = entry ? documentToHtmlString(entry.fields.content, options) : "";
     <HeroBanner
       title={entry?.fields?.title}
       description={entry?.fields?.subTitle}
-      image={entry?.fields.heroBanner.fields.file?.url ? (entry.fields.heroBanner.fields.file.url.startsWith('//') ? 'https:' + entry.fields.heroBanner.fields.file.url : entry.fields.heroBanner.fields.file.url) + '?fm=avif' : ''}
+      image={contentfulAssetUrl(entry?.fields?.heroBanner?.fields?.file?.url)}
+      imageDesktop={contentfulAssetUrl(entry?.fields?.heroBannerDesktop?.fields?.file?.url) || undefined}
     />
     <section class="w-11/12 md:w-9/12 container mx-auto md:my-20 my-6">
       <div class="w-12/12">

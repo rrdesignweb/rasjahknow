@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
 import EventsList from "../components/EventsList";
 import { contentfulClient } from "../lib/contentful";
+import { contentfulAssetUrl } from "../lib/contentfulAssetUrl";
 import PressKit from "../components/PressKit.astro";
 
 interface EventsPage {
@@ -11,6 +12,13 @@ interface EventsPage {
     title: string;
     subTitle: string;
     heroBanner: {
+      fields: {
+        file: {
+          url: string | undefined;
+        };
+      };
+    };
+    heroBannerDesktop?: {
       fields: {
         file: {
           url: string | undefined;
@@ -30,7 +38,8 @@ const entry: any = await contentfulClient.getEntry<EventsPage>(
   <HeroBanner
     title={entry?.fields?.title}
     description={entry?.fields?.subTitle}
-    image={entry?.fields.heroBanner.fields.file?.url + "?fm=avif"}
+    image={contentfulAssetUrl(entry?.fields?.heroBanner?.fields?.file?.url)}
+    imageDesktop={contentfulAssetUrl(entry?.fields?.heroBannerDesktop?.fields?.file?.url) || undefined}
   />
   <EventsList client:load />
   <PressKit />

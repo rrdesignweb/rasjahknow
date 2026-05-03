@@ -2,12 +2,20 @@
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
 import { contentfulClient } from "../lib/contentful";
+import { contentfulAssetUrl } from "../lib/contentfulAssetUrl";
 interface ContactPage {
   contentTypeId: "eRL0cxhoQMb3vZTgIHiUO";
   fields: {
     title: string;
     subTitle: string;
     heroBanner: {
+      fields: {
+        file: {
+          url: string | undefined;
+        };
+      };
+    };
+    heroBannerDesktop?: {
       fields: {
         file: {
           url: string | undefined;
@@ -27,7 +35,8 @@ const entry = await contentfulClient.getEntry<ContactPage>(
   <HeroBanner
     title={entry?.fields?.title}
     description={entry?.fields?.subTitle}
-    image={entry?.fields.heroBanner.fields.file?.url + '?fm=avif'}
+    image={contentfulAssetUrl(entry?.fields?.heroBanner?.fields?.file?.url)}
+    imageDesktop={contentfulAssetUrl(entry?.fields?.heroBannerDesktop?.fields?.file?.url) || undefined}
   />
   <section class="w-9/12 mx-auto my-10">
     <div class="container">

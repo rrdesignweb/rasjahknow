@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import HeroBanner from "../components/HeroBanner.astro";
 import { contentfulClient } from "../lib/contentful";
+import { contentfulAssetUrl } from "../lib/contentfulAssetUrl";
 import PressKit from "../components/PressKit.astro";
 interface MusicPage {
   contentTypeId: "FyMotfR5FPnEC66Zt2wRh";
@@ -9,6 +10,13 @@ interface MusicPage {
     title: string;
     subTitle: string;
     heroBanner: {
+      fields: {
+        file: {
+          url: string | undefined;
+        };
+      };
+    };
+    heroBannerDesktop?: {
       fields: {
         file: {
           url: string | undefined;
@@ -40,7 +48,8 @@ const entries: any = await contentfulClient.getEntries<MusicItem>({
   <HeroBanner
     title={entry?.fields?.title}
     description={entry?.fields?.subTitle}
-    image={entry?.fields.heroBanner.fields.file?.url + "?fm=avif"}
+    image={contentfulAssetUrl(entry?.fields?.heroBanner?.fields?.file?.url)}
+    imageDesktop={contentfulAssetUrl(entry?.fields?.heroBannerDesktop?.fields?.file?.url) || undefined}
   />
   <section class="w-11/12 md:w-9/12 container mx-auto mt-10 mb-6">
     <h3 class="text-1xl md:text-2xl font-semibold">Listen to the Music</h3>
