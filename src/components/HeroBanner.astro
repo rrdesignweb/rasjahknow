@@ -11,12 +11,7 @@ const { title, description, image, imageDesktop } = Astro.props;
 const hasDesktopImage = Boolean(imageDesktop?.length);
 ---
 
-<div
-    class:list={[
-        "relative w-full overflow-hidden",
-        hasDesktopImage ? "h-72 md:h-96" : "h-96",
-    ]}
->
+<div class="relative h-96 w-full overflow-hidden">
     <div class="absolute inset-0 z-10 w-full">
         {
             hasDesktopImage ? (
